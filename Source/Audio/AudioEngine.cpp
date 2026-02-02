@@ -91,10 +91,32 @@ void AudioEngine::audioDeviceIOCallbackWithContext (
             currentBeat.store (beat + beatsPerSample);
         }
 
-        // Check if we've passed the end
-        if (currentBeat.load() >= currentSketch->getTotalLengthBeats())
+        // Looping or auto-stop
+        if (looping.load())
         {
-            stop();
+            double loopEnd = loopEndBeat.load();
+            if (loopEnd > 0.0 && currentBeat.load() >= loopEnd)
+            {
+                double loopStart = loopStartBeat.load();
+                // Turn off all active clips so they can re-trigger
+                for (int ci : activeClipIndices)
+                {
+                    auto* elem = dynamic_cast<AudioVisualElement*> (
+                        elementLibrary.getElementById (currentSketch->getClip (ci).elementId));
+                    if (elem != nullptr && elem->getMidiNote() >= 0)
+                        synthesiser.noteOff (1, elem->getMidiNote(), 1.0f, false);
+                }
+                activeClipIndices.clear();
+                currentBeat.store (loopStart);
+            }
+        }
+        else
+        {
+            double totalLen = currentSketch->getTotalLengthBeats();
+            if (totalLen > 0.0 && currentBeat.load() >= totalLen)
+            {
+                stop();
+            }
         }
     }
 
@@ -184,6 +206,17 @@ void AudioEngine::setPosition (double beats)
 void AudioEngine::setBPM (double bpm)
 {
     currentBPM.store (bpm);
+}
+
+void AudioEngine::setLoopRange (double startBeat, double endBeat)
+{
+    loopStartBeat.store (startBeat);
+    loopEndBeat.store (endBeat);
+}
+
+void AudioEngine::setLooping (bool shouldLoop)
+{
+    looping.store (shouldLoop);
 }
 
 void AudioEngine::startRecording()

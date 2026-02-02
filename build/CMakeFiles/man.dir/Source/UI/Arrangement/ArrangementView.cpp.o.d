@@ -1602,9 +1602,11 @@ CMakeFiles/man.dir/Source/UI/Arrangement/ArrangementView.cpp.o: \
   /Users/christos/Documents/Gits/man/Source/Model/Clip.h \
   /Users/christos/Documents/Gits/man/Source/Model/Element.h \
   /Users/christos/Documents/Gits/man/Source/Model/ElementLibrary.h \
+  /Users/christos/Documents/Gits/man/Source/Audio/SampleManager.h \
   /Users/christos/Documents/Gits/man/Source/Visuals/VisualCanvas.h \
   /Users/christos/Documents/Gits/man/Source/Visuals/VisualRenderer.h \
   /Users/christos/Documents/Gits/man/Source/Audio/AudioEngine.h \
-  /Users/christos/Documents/Gits/man/Source/Audio/SampleManager.h \
   /Users/christos/Documents/Gits/man/Source/Audio/SampleSound.h \
-  /Users/christos/Documents/Gits/man/Source/Audio/SampleVoice.h
+  /Users/christos/Documents/Gits/man/Source/Audio/SampleVoice.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Arrangement/ElementPalette.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Discovery/ElementTile.h

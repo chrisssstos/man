@@ -1,8 +1,7 @@
 #include "TrackLane.h"
 
-TrackLane::TrackLane (const juce::String& elemId, const juce::String& n,
-                      juce::Colour c, Sketch& sk)
-    : elementId (elemId), name (n), colour (c), sketch (sk)
+TrackLane::TrackLane (int idx, Sketch& sk, ElementLibrary& lib, SampleManager& sm)
+    : trackIndex (idx), sketch (sk), elementLibrary (lib), sampleManager (sm)
 {
 }
 
@@ -11,52 +10,61 @@ void TrackLane::paint (juce::Graphics& g)
     auto area = getLocalBounds();
     int totalW = getWidth();
 
-    // Header background — smooth dark panel
+    // Header background
     auto header = area.removeFromLeft (kHeaderWidth);
     g.setColour (juce::Colour (0xff1a1a3a));
     g.fillRect (header);
 
-    // Colour indicator strip — rounded left edge
-    g.setColour (colour);
-    g.fillRoundedRectangle (header.removeFromLeft (6).toFloat(), 2.0f);
-
-    // Element name
-    g.setColour (juce::Colours::white);
-    g.setFont (juce::FontOptions (13.0f));
-    g.drawText (name, header.reduced (8, 0), juce::Justification::centredLeft, true);
+    // Track number
+    g.setColour (juce::Colours::white.withAlpha (0.5f));
+    g.setFont (juce::FontOptions (11.0f));
+    g.drawText (juce::String (trackIndex + 1), header.reduced (4, 0),
+                juce::Justification::centred, true);
 
     // Grid area background
-    g.setColour (juce::Colour (0xff0e0e24));
+    g.setColour (dragHovering ? juce::Colour (0xff141438) : juce::Colour (0xff0e0e24));
     g.fillRect (area);
 
-    // Beat grid lines — softer
+    // Beat grid lines
     int gridStart = kHeaderWidth;
-    for (int beat = 0; gridStart + beat * kPixelsPerBeat < totalW; ++beat)
+    int ppb = (int) pixelsPerBeat;
+    for (int beat = 0; gridStart + beat * ppb < totalW; ++beat)
     {
-        int x = gridStart + beat * kPixelsPerBeat;
+        int x = gridStart + beat * ppb;
         bool isMeasure = (beat % 4 == 0);
         g.setColour (isMeasure ? juce::Colour (0xff2a2a4a) : juce::Colour (0xff181838));
         g.drawVerticalLine (x, (float) area.getY(), (float) area.getBottom());
     }
 
-    // Bottom separator — subtle
+    // Bottom separator
     g.setColour (juce::Colour (0xff1c1c3a));
     g.drawLine (0.0f, (float) getHeight() - 0.5f, (float) totalW, (float) getHeight() - 0.5f);
 
-    // Playhead highlight — smooth glow
+    // Playhead highlight
     if (playheadBeat >= 0.0)
     {
-        int px = kHeaderWidth + (int) (playheadBeat * kPixelsPerBeat);
+        int px = kHeaderWidth + (int) (playheadBeat * pixelsPerBeat);
         if (px >= kHeaderWidth && px < totalW)
         {
-            // Soft glow column
             g.setColour (juce::Colour (0xff44ff44).withAlpha (0.12f));
-            g.fillRect (px - 1, area.getY(), kPixelsPerBeat + 2, area.getHeight());
+            g.fillRect (px - 1, area.getY(), (int) pixelsPerBeat + 2, area.getHeight());
 
-            // Crisp playhead line
             g.setColour (juce::Colour (0xff44ff44).withAlpha (0.8f));
             g.drawVerticalLine (px, (float) area.getY(), (float) area.getBottom());
         }
+    }
+}
+
+void TrackLane::paintOverChildren (juce::Graphics& g)
+{
+    if (dragHovering)
+    {
+        g.setColour (juce::Colours::white.withAlpha (0.7f));
+        g.drawVerticalLine (dragHoverX, 0.0f, (float) getHeight());
+
+        g.setColour (juce::Colours::white.withAlpha (0.15f));
+        int snapW = juce::jmax (4, (int) (snapBeats * pixelsPerBeat));
+        g.fillRect (dragHoverX, 0, snapW, getHeight());
     }
 }
 
@@ -67,27 +75,54 @@ void TrackLane::resized()
 
 void TrackLane::mouseDown (const juce::MouseEvent& e)
 {
-    int localX = e.x - kHeaderWidth;
-    if (localX < 0)
-        return;
-
-    double beatClicked = (double) localX / (double) kPixelsPerBeat;
-    beatClicked = std::floor (beatClicked); // Snap to beat
-
-    // Check if we clicked on an existing clip
-    for (auto* comp : clipComponents)
-    {
-        if (beatClicked >= comp->getStartBeat() &&
-            beatClicked < comp->getStartBeat() + comp->getDurationBeats())
-        {
-            listeners.call ([&] (Listener& l) { l.trackClipRemoved (comp->getClipIndex()); });
-            return;
-        }
-    }
-
-    // Add a new clip at this beat
-    listeners.call ([&] (Listener& l) { l.trackClipAdded (elementId, beatClicked); });
+    juce::ignoreUnused (e);
+    // No click-to-add on generic lanes — only drag & drop from palette
 }
+
+// --- DragAndDropTarget ---
+
+bool TrackLane::isInterestedInDragSource (const SourceDetails& details)
+{
+    return details.description.toString().isNotEmpty();
+}
+
+void TrackLane::itemDragEnter (const SourceDetails&)
+{
+    dragHovering = true;
+    repaint();
+}
+
+void TrackLane::itemDragMove (const SourceDetails& details)
+{
+    int localX = details.localPosition.x - kHeaderWidth;
+    double beat = juce::jmax (0.0, (double) localX / pixelsPerBeat);
+    if (snapBeats > 0.0)
+        beat = std::floor (beat / snapBeats) * snapBeats;
+    dragHoverX = kHeaderWidth + (int) (beat * pixelsPerBeat);
+    repaint();
+}
+
+void TrackLane::itemDragExit (const SourceDetails&)
+{
+    dragHovering = false;
+    repaint();
+}
+
+void TrackLane::itemDropped (const SourceDetails& details)
+{
+    dragHovering = false;
+
+    int localX = details.localPosition.x - kHeaderWidth;
+    double beat = juce::jmax (0.0, (double) localX / pixelsPerBeat);
+    if (snapBeats > 0.0)
+        beat = std::floor (beat / snapBeats) * snapBeats;
+
+    auto droppedElementId = details.description.toString();
+    listeners.call ([&] (Listener& l) { l.trackClipAdded (droppedElementId, trackIndex, beat); });
+    repaint();
+}
+
+// --- Clips ---
 
 void TrackLane::rebuildClips()
 {
@@ -97,11 +132,39 @@ void TrackLane::rebuildClips()
     for (int i = 0; i < (int) clips.size(); ++i)
     {
         const auto& clip = clips[(size_t) i];
-        if (clip.elementId.id == elementId)
+        if (clip.track != trackIndex)
+            continue;
+
+        // Look up element info for name, colour, sample
+        juce::String clipName = clip.elementId.id;
+        juce::Colour clipColour (0xff888888);
+        juce::String samplePath;
+
+        auto* elem = elementLibrary.getElementById (clip.elementId);
+        if (elem != nullptr)
         {
-            auto* comp = clipComponents.add (
-                new ClipComponent (i, name, colour, clip.startBeat, clip.durationBeats));
-            addAndMakeVisible (comp);
+            clipName = elem->getName();
+            if (auto* av = dynamic_cast<AudioVisualElement*> (elem))
+            {
+                clipColour = av->getColour();
+                samplePath = av->getSamplePath();
+            }
+        }
+
+        auto* comp = clipComponents.add (
+            new ClipComponent (i, clipName, clipColour, clip.startBeat, clip.durationBeats));
+        comp->setPixelsPerBeat (pixelsPerBeat);
+        comp->setSnapBeats (snapBeats);
+        comp->setHeaderWidth (kHeaderWidth);
+        comp->setRowHeight (kRowHeight);
+        comp->addListener (this);
+        addAndMakeVisible (comp);
+
+        // Load waveform preview if sample exists
+        if (samplePath.isNotEmpty())
+        {
+            if (auto* loaded = sampleManager.loadSample (samplePath))
+                comp->setWaveform (&loaded->buffer, loaded->buffer.getNumSamples());
         }
     }
 
@@ -117,12 +180,50 @@ void TrackLane::setPlayheadBeat (double beat)
     }
 }
 
+void TrackLane::setPixelsPerBeat (double ppb)
+{
+    pixelsPerBeat = ppb;
+    for (auto* comp : clipComponents)
+        comp->setPixelsPerBeat (ppb);
+    layoutClips();
+    repaint();
+}
+
+void TrackLane::setSnapBeats (double snap)
+{
+    snapBeats = snap;
+    for (auto* comp : clipComponents)
+        comp->setSnapBeats (snap);
+}
+
+void TrackLane::clipMoved (int clipIndex, double newBeat)
+{
+    listeners.call ([clipIndex, newBeat] (Listener& l) { l.trackClipMoved (clipIndex, newBeat); });
+    layoutClips();
+}
+
+void TrackLane::clipResized (int clipIndex, double newDuration)
+{
+    listeners.call ([clipIndex, newDuration] (Listener& l) { l.trackClipResized (clipIndex, newDuration); });
+    layoutClips();
+}
+
+void TrackLane::clipDeleted (int clipIndex)
+{
+    listeners.call ([clipIndex] (Listener& l) { l.trackClipRemoved (clipIndex); });
+}
+
+void TrackLane::clipTrackChanged (int clipIndex, int deltaTrack)
+{
+    listeners.call ([clipIndex, deltaTrack] (Listener& l) { l.trackClipTrackChanged (clipIndex, deltaTrack); });
+}
+
 void TrackLane::layoutClips()
 {
     for (auto* comp : clipComponents)
     {
-        int x = kHeaderWidth + (int) (comp->getStartBeat() * kPixelsPerBeat);
-        int w = juce::jmax (4, (int) (comp->getDurationBeats() * kPixelsPerBeat));
+        int x = kHeaderWidth + (int) (comp->getStartBeat() * pixelsPerBeat);
+        int w = juce::jmax (4, (int) (comp->getDurationBeats() * pixelsPerBeat));
         comp->setBounds (x, 2, w, getHeight() - 4);
     }
 }

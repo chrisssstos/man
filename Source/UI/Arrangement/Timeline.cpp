@@ -1,7 +1,32 @@
 #include "Timeline.h"
 
-ArrangementTimeline::ArrangementTimeline (Sketch& sk, ElementLibrary& lib)
-    : sketch (sk), elementLibrary (lib)
+// --- GridDropTarget ---
+
+bool ArrangementTimeline::GridDropTarget::isInterestedInDragSource (const SourceDetails& details)
+{
+    return details.description.toString().isNotEmpty();
+}
+
+void ArrangementTimeline::GridDropTarget::itemDropped (const SourceDetails& details)
+{
+    auto elemId = details.description.toString();
+
+    auto* lane = owner.findLaneAtY (details.localPosition.y);
+    if (lane == nullptr)
+        return;
+
+    int localX = details.localPosition.x - TrackLane::kHeaderWidth;
+    double beat = juce::jmax (0.0, (double) localX / owner.pixelsPerBeat);
+    if (owner.snapBeats > 0.0)
+        beat = std::floor (beat / owner.snapBeats) * owner.snapBeats;
+
+    owner.trackClipAdded (elemId, lane->getTrackIndex(), beat);
+}
+
+// --- ArrangementTimeline ---
+
+ArrangementTimeline::ArrangementTimeline (Sketch& sk, ElementLibrary& lib, SampleManager& sm)
+    : sketch (sk), elementLibrary (lib), sampleManager (sm), gridContainer (*this)
 {
     gridViewport.setViewedComponent (&gridContainer, false);
     gridViewport.setScrollBarsShown (true, true);
@@ -12,33 +37,29 @@ void ArrangementTimeline::paint (juce::Graphics& g)
 {
     g.fillAll (juce::Colour (0xff0a0a1e));
 
-    // Ruler at top
     auto rulerArea = getLocalBounds().removeFromTop (kRulerHeight);
     paintRuler (g, rulerArea);
 }
 
 void ArrangementTimeline::paintRuler (juce::Graphics& g, juce::Rectangle<int> area)
 {
-    // Smooth dark ruler background
     g.setColour (juce::Colour (0xff1a1a3a));
     g.fillRect (area);
 
-    // Subtle bottom border
     g.setColour (juce::Colour (0xff2a2a4a));
     g.drawLine ((float) area.getX(), (float) area.getBottom() - 0.5f,
                 (float) area.getRight(), (float) area.getBottom() - 0.5f);
 
-    g.setFont (juce::FontOptions (11.0f));
-
-    // Account for viewport scroll
     int scrollX = gridViewport.getViewPositionX();
     int gridStart = TrackLane::kHeaderWidth - scrollX;
-
     int totalW = area.getWidth();
-    int ppb = TrackLane::kPixelsPerBeat;
+    int ppb = (int) pixelsPerBeat;
 
-    int firstBeat = juce::jmax (0, scrollX / ppb);
-    int lastBeat = (scrollX + totalW) / ppb + 2;
+    int firstBeat = juce::jmax (0, scrollX / juce::jmax (1, ppb));
+    int lastBeat = (scrollX + totalW) / juce::jmax (1, ppb) + 2;
+
+    bool showSixteenths = pixelsPerBeat >= 120.0;
+    bool showEighths = pixelsPerBeat >= 60.0;
 
     for (int beat = firstBeat; beat <= lastBeat; ++beat)
     {
@@ -54,8 +75,20 @@ void ArrangementTimeline::paintRuler (juce::Graphics& g, juce::Rectangle<int> ar
             g.drawVerticalLine (x, (float) area.getY() + 2.0f, (float) area.getBottom());
 
             int bar = beat / 4 + 1;
+
+            double seconds = (beat / bpm) * 60.0;
+            int mins = (int) (seconds / 60.0);
+            double secs = seconds - mins * 60.0;
+            auto timeStr = juce::String::formatted ("%d:%04.1f", mins, secs);
+
+            g.setFont (juce::FontOptions (11.0f));
             g.setColour (juce::Colours::white.withAlpha (0.8f));
-            g.drawText (juce::String (bar), x + 4, area.getY(), 30, area.getHeight(),
+            g.drawText (juce::String (bar), x + 4, area.getY(), 30, area.getHeight() / 2,
+                        juce::Justification::centredLeft);
+
+            g.setColour (juce::Colours::white.withAlpha (0.45f));
+            g.setFont (juce::FontOptions (9.0f));
+            g.drawText (timeStr, x + 4, area.getY() + area.getHeight() / 2, 50, area.getHeight() / 2,
                         juce::Justification::centredLeft);
         }
         else
@@ -63,19 +96,40 @@ void ArrangementTimeline::paintRuler (juce::Graphics& g, juce::Rectangle<int> ar
             g.setColour (juce::Colour (0xff282848));
             g.drawVerticalLine (x, (float) area.getY() + 8.0f, (float) area.getBottom());
         }
+
+        if (showEighths)
+        {
+            int halfX = x + ppb / 2;
+            if (halfX > 0 && halfX < totalW)
+            {
+                g.setColour (juce::Colour (0xff1e1e3e));
+                g.drawVerticalLine (halfX, (float) area.getY() + 14.0f, (float) area.getBottom());
+            }
+        }
+
+        if (showSixteenths)
+        {
+            for (int sub = 1; sub < 4; sub += 2)
+            {
+                int subX = x + sub * ppb / 4;
+                if (subX > 0 && subX < totalW)
+                {
+                    g.setColour (juce::Colour (0xff181830));
+                    g.drawVerticalLine (subX, (float) area.getY() + 18.0f, (float) area.getBottom());
+                }
+            }
+        }
     }
 
-    // Playhead on ruler — smooth green marker
+    // Playhead on ruler
     if (playheadBeat >= 0.0)
     {
-        int px = gridStart + (int) (playheadBeat * ppb);
+        int px = gridStart + (int) (playheadBeat * pixelsPerBeat);
         if (px >= 0 && px < totalW)
         {
-            // Playhead line
             g.setColour (juce::Colour (0xff44ff44));
             g.drawVerticalLine (px, (float) area.getY(), (float) area.getBottom());
 
-            // Smooth triangle marker
             juce::Path tri;
             tri.addTriangle ((float) px - 5.0f, (float) area.getY(),
                              (float) px + 5.0f, (float) area.getY(),
@@ -97,7 +151,7 @@ void ArrangementTimeline::resized()
     if (totalLen > 0.0)
         numBeats = juce::jmax (numBeats, (int) totalLen + 16);
 
-    int gridW = TrackLane::kHeaderWidth + numBeats * TrackLane::kPixelsPerBeat;
+    int gridW = TrackLane::kHeaderWidth + numBeats * (int) pixelsPerBeat;
     int gridH = (int) trackLanes.size() * TrackLane::kRowHeight;
     gridContainer.setSize (juce::jmax (gridW, area.getWidth()),
                            juce::jmax (gridH, area.getHeight()));
@@ -110,22 +164,87 @@ void ArrangementTimeline::resized()
     }
 }
 
+void ArrangementTimeline::mouseWheelMove (const juce::MouseEvent& e, const juce::MouseWheelDetails& wheel)
+{
+    if (e.mods.isCommandDown())
+    {
+        int scrollX = gridViewport.getViewPositionX();
+        double cursorXInGrid = (double) (e.x - TrackLane::kHeaderWidth + scrollX);
+        double beatAtCursor = cursorXInGrid / pixelsPerBeat;
+
+        double zoomFactor = 1.0 + wheel.deltaY * 0.3;
+        double newPPB = juce::jlimit (kMinPixelsPerBeat, kMaxPixelsPerBeat, pixelsPerBeat * zoomFactor);
+
+        if (newPPB != pixelsPerBeat)
+        {
+            pixelsPerBeat = newPPB;
+            updateTrackLaneZoom();
+            resized();
+
+            int newScrollX = (int) (beatAtCursor * pixelsPerBeat) - (e.x - TrackLane::kHeaderWidth);
+            gridViewport.setViewPosition (juce::jmax (0, newScrollX), gridViewport.getViewPositionY());
+
+            repaint();
+        }
+    }
+    else
+    {
+        gridViewport.mouseWheelMove (e, wheel);
+    }
+}
+
+void ArrangementTimeline::mouseDown (const juce::MouseEvent& e)
+{
+    auto rulerArea = getLocalBounds().removeFromTop (kRulerHeight);
+    if (rulerArea.contains (e.getPosition()))
+    {
+        draggingPlayhead = true;
+
+        int scrollX = gridViewport.getViewPositionX();
+        int gridStart = TrackLane::kHeaderWidth - scrollX;
+        double beat = (double) (e.x - gridStart) / pixelsPerBeat;
+        beat = juce::jmax (0.0, beat);
+
+        if (snapBeats > 0.0)
+            beat = std::round (beat / snapBeats) * snapBeats;
+
+        timelineListeners.call ([beat] (Listener& l) { l.timelinePlayheadClicked (beat); });
+    }
+}
+
+void ArrangementTimeline::mouseDrag (const juce::MouseEvent& e)
+{
+    if (draggingPlayhead)
+    {
+        int scrollX = gridViewport.getViewPositionX();
+        int gridStart = TrackLane::kHeaderWidth - scrollX;
+        double beat = (double) (e.x - gridStart) / pixelsPerBeat;
+        beat = juce::jmax (0.0, beat);
+
+        if (snapBeats > 0.0)
+            beat = std::round (beat / snapBeats) * snapBeats;
+
+        timelineListeners.call ([beat] (Listener& l) { l.timelinePlayheadClicked (beat); });
+    }
+}
+
+void ArrangementTimeline::mouseUp (const juce::MouseEvent&)
+{
+    draggingPlayhead = false;
+}
+
 void ArrangementTimeline::rebuild()
 {
     trackLanes.clear();
     gridContainer.removeAllChildren();
 
-    auto avElements = elementLibrary.getAllDiscoveredAV();
-
-    for (auto* av : avElements)
+    for (int i = 0; i < kNumTracks; ++i)
     {
-        auto elemId = av->getId().id;
-
-        auto* lane = trackLanes.add (new TrackLane (
-            elemId, av->getName(), av->getColour(), sketch));
+        auto* lane = trackLanes.add (new TrackLane (i, sketch, elementLibrary, sampleManager));
+        lane->setPixelsPerBeat (pixelsPerBeat);
+        lane->setSnapBeats (snapBeats);
         lane->addListener (this);
         gridContainer.addAndMakeVisible (lane);
-
         lane->rebuildClips();
     }
 
@@ -139,7 +258,7 @@ void ArrangementTimeline::setPlayheadBeat (double beat)
     for (auto* lane : trackLanes)
         lane->setPlayheadBeat (beat);
 
-    repaint(); // For ruler playhead
+    repaint();
 }
 
 void ArrangementTimeline::rebuildClips()
@@ -148,21 +267,40 @@ void ArrangementTimeline::rebuildClips()
         lane->rebuildClips();
 }
 
-void ArrangementTimeline::trackClipAdded (const juce::String& elementId, double beat)
+void ArrangementTimeline::setPixelsPerBeat (double ppb)
+{
+    pixelsPerBeat = juce::jlimit (kMinPixelsPerBeat, kMaxPixelsPerBeat, ppb);
+    updateTrackLaneZoom();
+    resized();
+    repaint();
+}
+
+void ArrangementTimeline::setSnapBeats (double snap)
+{
+    snapBeats = snap;
+    for (auto* lane : trackLanes)
+        lane->setSnapBeats (snap);
+}
+
+void ArrangementTimeline::setBPM (double newBPM)
+{
+    bpm = newBPM;
+    repaint();
+}
+
+void ArrangementTimeline::updateTrackLaneZoom()
+{
+    for (auto* lane : trackLanes)
+        lane->setPixelsPerBeat (pixelsPerBeat);
+}
+
+void ArrangementTimeline::trackClipAdded (const juce::String& elementId, int track, double beat)
 {
     Clip clip;
     clip.elementId = { elementId };
     clip.startBeat = beat;
-    clip.durationBeats = 1.0;
-
-    for (int i = 0; i < trackLanes.size(); ++i)
-    {
-        if (trackLanes[i]->getElementId() == elementId)
-        {
-            clip.track = i;
-            break;
-        }
-    }
+    clip.durationBeats = juce::jmax (1.0, snapBeats);
+    clip.track = track;
 
     sketch.addClip (clip);
     rebuildClips();
@@ -173,4 +311,34 @@ void ArrangementTimeline::trackClipRemoved (int clipIndex)
 {
     sketch.removeClip (clipIndex);
     rebuildClips();
+}
+
+void ArrangementTimeline::trackClipMoved (int clipIndex, double newBeat)
+{
+    sketch.moveClip (clipIndex, newBeat, sketch.getClip (clipIndex).track);
+}
+
+void ArrangementTimeline::trackClipResized (int clipIndex, double newDuration)
+{
+    sketch.resizeClip (clipIndex, newDuration);
+}
+
+void ArrangementTimeline::trackClipTrackChanged (int clipIndex, int deltaTrack)
+{
+    auto& clip = sketch.getClip (clipIndex);
+    int newTrack = juce::jlimit (0, kNumTracks - 1, clip.track + deltaTrack);
+    if (newTrack != clip.track)
+    {
+        sketch.moveClip (clipIndex, clip.startBeat, newTrack);
+        rebuildClips();
+        resized();
+    }
+}
+
+TrackLane* ArrangementTimeline::findLaneAtY (int y)
+{
+    for (auto* lane : trackLanes)
+        if (y >= lane->getY() && y < lane->getY() + lane->getHeight())
+            return lane;
+    return nullptr;
 }

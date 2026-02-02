@@ -1619,6 +1619,7 @@ CMakeFiles/man.dir/Source/MainComponent.cpp.o: \
   /Users/christos/Documents/Gits/man/Source/UI/Arrangement/Timeline.h \
   /Users/christos/Documents/Gits/man/Source/UI/Arrangement/TrackLane.h \
   /Users/christos/Documents/Gits/man/Source/UI/Arrangement/ClipComponent.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Arrangement/ElementPalette.h \
   /Users/christos/Documents/Gits/man/Source/UI/Live/LiveView.h \
   /Users/christos/Documents/Gits/man/Source/UI/Live/TriggerGrid.h \
   /Users/christos/Documents/Gits/man/Source/UI/Live/TriggerPad.h

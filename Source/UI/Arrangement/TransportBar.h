@@ -13,10 +13,12 @@ public:
     {
         virtual ~Listener() = default;
         virtual void playClicked() = 0;
+        virtual void pauseClicked() = 0;
         virtual void stopClicked() = 0;
         virtual void recordClicked() = 0;
         virtual void exportClicked() = 0;
         virtual void bpmChanged (double newBPM) = 0;
+        virtual void snapChanged (double snapBeats) = 0;
     };
 
     void addListener (Listener* l)    { listeners.add (l); }
@@ -28,11 +30,16 @@ public:
 
 private:
     juce::TextButton playButton { "Play" };
+    juce::TextButton pauseButton { "Pause" };
     juce::TextButton stopButton { "Stop" };
     juce::TextButton recordButton { "Record" };
     juce::TextButton exportButton { "Export" };
     juce::Slider bpmSlider;
     juce::Label beatLabel;
+    juce::ComboBox snapCombo;
+    juce::Label snapLabel;
+
+    double currentBPM = 120.0;
 
     juce::ListenerList<Listener> listeners;
 

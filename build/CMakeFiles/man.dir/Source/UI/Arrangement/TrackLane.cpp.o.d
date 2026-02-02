@@ -1597,4 +1597,6 @@ CMakeFiles/man.dir/Source/UI/Arrangement/TrackLane.cpp.o: \
   /Users/christos/Documents/Gits/man/Source/UI/Arrangement/ClipComponent.h \
   /Users/christos/Documents/Gits/man/Source/Model/Sketch.h \
   /Users/christos/Documents/Gits/man/Source/Model/Clip.h \
-  /Users/christos/Documents/Gits/man/Source/Model/Element.h
+  /Users/christos/Documents/Gits/man/Source/Model/Element.h \
+  /Users/christos/Documents/Gits/man/Source/Model/ElementLibrary.h \
+  /Users/christos/Documents/Gits/man/Source/Audio/SampleManager.h

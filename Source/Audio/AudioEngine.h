@@ -36,6 +36,11 @@ public:
     double getCurrentBeat() const       { return currentBeat.load(); }
     bool isPlaying() const              { return playing.load(); }
     bool isRecording() const            { return recording.load(); }
+
+    // Looping
+    void setLoopRange (double startBeat, double endBeat);
+    void setLooping (bool shouldLoop);
+    bool isLooping() const              { return looping.load(); }
     void startRecording();
     void stopRecording();
 
@@ -76,6 +81,9 @@ private:
     std::atomic<double> currentBeat { 0.0 };
     std::atomic<bool> playing { false };
     std::atomic<bool> recording { false };
+    std::atomic<bool> looping { true };
+    std::atomic<double> loopStartBeat { 0.0 };
+    std::atomic<double> loopEndBeat { 16.0 };
 
     Sketch* currentSketch = nullptr;
     double sampleRate = 44100.0;
