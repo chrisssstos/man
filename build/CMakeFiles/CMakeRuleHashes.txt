@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+a1c242ca704781590abb2b09b970db32 juce_binarydata_ManResources/JuceLibraryCode/BinaryData1.cpp
+4c7352e65ae750979c8ff2b948a218e8 man_artefacts/JuceLibraryCode/JuceHeader.h
+9087b97a1c897b9a400fb140ccb72cbe man_artefacts/JuceLibraryCode/man/PkgInfo

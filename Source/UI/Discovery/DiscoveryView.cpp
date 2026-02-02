@@ -121,6 +121,9 @@ void DiscoveryView::tileClicked (ElementTile* tile)
                 selectedSound->setSelected (false);
             selectedSound = tile;
             tile->setSelected (true);
+
+            // Auto-preview the sound
+            previewSoundTile (tile);
         }
     }
     else if (type == ElementTile::ElementType::Visual)
@@ -160,26 +163,29 @@ void DiscoveryView::tilePlayClicked (ElementTile* tile)
     auto type = tile->getElementType();
 
     if (type == ElementTile::ElementType::Sound)
+        previewSoundTile (tile);
+    else if (type == ElementTile::ElementType::AudioVisual)
+        audioEngine.triggerElement (tile->getElement()->getId());
+}
+
+void DiscoveryView::previewSoundTile (ElementTile* tile)
+{
+    auto* snd = static_cast<SoundElement*> (tile->getElement());
+    auto path = snd->getSamplePath();
+    juce::File file (path);
+    if (! file.existsAsFile())
     {
-        auto* snd = static_cast<SoundElement*> (tile->getElement());
-        auto path = snd->getSamplePath();
-        juce::File file (path);
-        if (! file.existsAsFile())
+        auto appBundle = juce::File::getSpecialLocation (juce::File::currentApplicationFile);
+        auto samplesDir = appBundle.getChildFile ("Contents/Resources/Samples");
+        if (! samplesDir.isDirectory())
         {
             auto exeDir = juce::File::getSpecialLocation (juce::File::currentExecutableFile).getParentDirectory();
-            auto samplesDir = exeDir.getChildFile ("Samples");
-            if (! samplesDir.isDirectory())
-                samplesDir = exeDir.getParentDirectory().getParentDirectory().getParentDirectory()
-                                   .getChildFile ("Resources").getChildFile ("Samples");
-            file = samplesDir.getChildFile (path);
+            samplesDir = exeDir.getChildFile ("Samples");
         }
-        if (file.existsAsFile())
-            audioEngine.previewFile (file);
+        file = samplesDir.getChildFile (path);
     }
-    else if (type == ElementTile::ElementType::AudioVisual)
-    {
-        audioEngine.triggerElement (tile->getElement()->getId());
-    }
+    if (file.existsAsFile())
+        audioEngine.previewFile (file);
 }
 
 void DiscoveryView::onNewDiscovery (const ElementID& id)

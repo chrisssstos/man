@@ -54,6 +54,8 @@ target_sources(man
         Source/UI/Common/ModeSelector.cpp
         Source/UI/Common/VisualPreview.cpp
         Source/Visuals/ImageVisual.cpp
+        Source/Visuals/VideoDecoder.mm
+        Source/Visuals/VideoVisual.cpp
         Source/UI/Browser/BrowserSidebar.cpp
         Source/UI/Browser/SoundBrowserPanel.cpp
         Source/UI/Browser/VisualBrowserPanel.cpp
@@ -78,6 +80,9 @@ target_link_libraries(man
         juce::juce_audio_utils
         juce::juce_audio_formats
         juce::juce_gui_extra
+        "-framework AVFoundation"
+        "-framework CoreMedia"
+        "-framework CoreVideo"
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
@@ -88,3 +93,9 @@ juce_add_binary_data(ManResources
         Resources/Recipes/default_recipes.json)
 
 target_link_libraries(man PRIVATE ManResources)
+
+# Copy sample files into the app bundle's Resources directory
+add_custom_command(TARGET man POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/Resources/Samples"
+        "$<TARGET_BUNDLE_CONTENT_DIR:man>/Resources/Samples")

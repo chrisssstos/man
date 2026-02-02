@@ -25,6 +25,7 @@ public:
     void audioDeviceStopped() override;
 
     juce::AudioDeviceManager& getDeviceManager() { return deviceManager; }
+    SampleManager& getSampleManager() { return sampleManager; }
 
     // Transport
     void play();
@@ -96,10 +97,12 @@ private:
     std::set<juce::String> activeElements;
     juce::CriticalSection activeElementsLock;
 
-    // Audio preview
+    // Audio preview (buffer-based, no transport)
     juce::AudioFormatManager previewFormatManager;
-    std::unique_ptr<juce::AudioFormatReaderSource> previewReaderSource;
-    juce::AudioTransportSource previewTransport;
+    std::unique_ptr<juce::AudioBuffer<float>> previewBuffer;
+    double previewSampleRate = 44100.0;
+    int previewPosition = 0;
+    std::atomic<bool> previewPlaying { false };
     juce::CriticalSection previewLock;
 
     void initialiseAudio();

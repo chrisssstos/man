@@ -56,6 +56,7 @@ private:
 
     bool tryCombine (const ElementID& a, const ElementID& b);
     void updateCombineButton();
+    void previewSoundTile (ElementTile* tile);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DiscoveryView)
 };

@@ -2,11 +2,12 @@
 #include <JuceHeader.h>
 #include "Model/Element.h"
 #include "Visuals/VisualRenderer.h"
+#include "Audio/SampleManager.h"
 
 class ElementTile : public juce::Component, public juce::Timer
 {
 public:
-    ElementTile (Element* element);
+    ElementTile (Element* element, SampleManager* sampleManager = nullptr);
     ~ElementTile() override;
 
     void paint (juce::Graphics& g) override;
@@ -29,6 +30,8 @@ public:
         virtual void tileClicked (ElementTile*) = 0;
         virtual void tileDoubleClicked (ElementTile*) {}
         virtual void tilePlayClicked (ElementTile*) {}
+        virtual void tilePressed (ElementTile*) {}
+        virtual void tileReleased (ElementTile*) {}
     };
 
     void addListener (Listener* l)    { listeners.add (l); }
@@ -50,8 +53,9 @@ private:
     bool needsAnimation = false;
 
     // Cached paint data
-    juce::Path soundIcon;
-    bool soundIconBuilt = false;
+    juce::Path waveformPath;
+    bool waveformBuilt = false;
+    SampleManager* sampleMgr = nullptr;
 
     juce::ListenerList<Listener> listeners;
 

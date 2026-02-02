@@ -57,6 +57,9 @@ VisualBrowserPanel::VisualBrowserPanel (ElementLibrary& lib)
     loadImageButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff2a2a5a));
     addAndMakeVisible (loadImageButton);
 
+    loadVideoButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff5a2a2a));
+    addAndMakeVisible (loadVideoButton);
+
     colourButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff2a2a5a));
     addAndMakeVisible (colourButton);
 
@@ -82,6 +85,30 @@ VisualBrowserPanel::VisualBrowserPanel (ElementLibrary& lib)
                     elementLibrary.addUserVisual (result.getFileNameWithoutExtension(),
                                                   VisualElement::VisualKind::Image,
                                                   juce::Colours::white, imgParams);
+                }
+            });
+    };
+
+    loadVideoButton.onClick = [this]
+    {
+        fileChooser = std::make_unique<juce::FileChooser> (
+            "Select Video", juce::File());
+
+        fileChooser->launchAsync (juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectFiles,
+            [this] (const juce::FileChooser& fc)
+            {
+                auto result = fc.getResult();
+                if (result.existsAsFile())
+                {
+                    auto ext = result.getFileExtension().toLowerCase();
+                    if (ext == ".mp4" || ext == ".mov" || ext == ".m4v" || ext == ".dxv")
+                    {
+                        juce::StringPairArray vidParams;
+                        vidParams.set ("videoPath", result.getFullPathName());
+                        elementLibrary.addUserVisual (result.getFileNameWithoutExtension(),
+                                                      VisualElement::VisualKind::Video,
+                                                      juce::Colours::white, vidParams);
+                    }
                 }
             });
     };
@@ -209,14 +236,23 @@ void VisualBrowserPanel::resized()
     int paramH = std::min (150, area.getHeight() / 3);
     paramEditor.setBounds (area.removeFromTop (paramH));
 
-    // Buttons
-    auto buttonRow = area.removeFromBottom (28);
-    addToLibraryButton.setBounds (buttonRow.removeFromLeft (buttonRow.getWidth() / 3));
-    colourButton.setBounds (buttonRow.removeFromLeft (buttonRow.getWidth() / 2));
-    loadImageButton.setBounds (buttonRow);
+    // Buttons - two rows from the bottom
+    auto row2 = area.removeFromBottom (28);
+    loadImageButton.setBounds (row2.removeFromLeft (row2.getWidth() / 2));
+    loadVideoButton.setBounds (row2);
+
+    auto row1 = area.removeFromBottom (28);
+    addToLibraryButton.setBounds (row1.removeFromLeft (row1.getWidth() / 2));
+    colourButton.setBounds (row1);
 
     // Preset list takes the rest
     presetList.setBounds (area);
+
+    // Ensure buttons are on top
+    loadVideoButton.toFront (false);
+    loadImageButton.toFront (false);
+    addToLibraryButton.toFront (false);
+    colourButton.toFront (false);
 }
 
 void VisualBrowserPanel::paint (juce::Graphics& g)

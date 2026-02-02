@@ -5,12 +5,15 @@ MainComponent::MainComponent()
     : audioEngine (elementLibrary, sampleManager),
       modeSelector()
 {
-    // Set the sample directory relative to the executable
-    auto exeDir = juce::File::getSpecialLocation (juce::File::currentExecutableFile).getParentDirectory();
-    auto samplesDir = exeDir.getChildFile ("Samples");
+    // Set the sample directory: look inside the app bundle's Resources first
+    auto appBundle = juce::File::getSpecialLocation (juce::File::currentApplicationFile);
+    auto samplesDir = appBundle.getChildFile ("Contents/Resources/Samples");
     if (! samplesDir.isDirectory())
-        samplesDir = exeDir.getParentDirectory().getParentDirectory().getParentDirectory()
-                           .getChildFile ("Resources").getChildFile ("Samples");
+    {
+        // Fallback for development: look relative to the source tree
+        auto exeDir = juce::File::getSpecialLocation (juce::File::currentExecutableFile).getParentDirectory();
+        samplesDir = exeDir.getChildFile ("Samples");
+    }
     sampleManager.setBaseSampleDirectory (samplesDir);
 
     initializeBaseElements();

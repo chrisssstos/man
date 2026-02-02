@@ -10,13 +10,12 @@ VisualPanel::VisualPanel (ElementLibrary& lib)
 
     importButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff4488ff));
     importButton.setColour (juce::TextButton::textColourOffId, juce::Colours::white);
-    importButton.setTooltip ("Import image files...");
+    importButton.setTooltip ("Import image or video files...");
     importButton.onClick = [this]
     {
         fileChooser = std::make_unique<juce::FileChooser> (
-            "Import Images",
-            juce::File::getSpecialLocation (juce::File::userPicturesDirectory),
-            "*.png;*.jpg;*.jpeg;*.gif;*.bmp");
+            "Import Visuals",
+            juce::File::getSpecialLocation (juce::File::userDocumentsDirectory));
 
         fileChooser->launchAsync (juce::FileBrowserComponent::openMode
                                     | juce::FileBrowserComponent::canSelectFiles
@@ -25,13 +24,26 @@ VisualPanel::VisualPanel (ElementLibrary& lib)
             {
                 for (const auto& file : fc.getResults())
                 {
-                    if (file.existsAsFile())
+                    if (! file.existsAsFile())
+                        continue;
+
+                    auto ext = file.getFileExtension().toLowerCase();
+
+                    if (ext == ".png" || ext == ".jpg" || ext == ".jpeg" || ext == ".gif" || ext == ".bmp")
                     {
                         juce::StringPairArray imgParams;
                         imgParams.set ("imagePath", file.getFullPathName());
                         library.addUserVisual (file.getFileNameWithoutExtension(),
                                                VisualElement::VisualKind::Image,
                                                juce::Colours::white, imgParams);
+                    }
+                    else if (ext == ".mp4" || ext == ".mov" || ext == ".m4v" || ext == ".dxv")
+                    {
+                        juce::StringPairArray vidParams;
+                        vidParams.set ("videoPath", file.getFullPathName());
+                        library.addUserVisual (file.getFileNameWithoutExtension(),
+                                               VisualElement::VisualKind::Video,
+                                               juce::Colours::white, vidParams);
                     }
                 }
                 rebuild();
@@ -134,7 +146,8 @@ bool VisualPanel::isInterestedInFileDrag (const juce::StringArray& files)
     for (const auto& f : files)
     {
         auto ext = juce::File (f).getFileExtension().toLowerCase();
-        if (ext == ".png" || ext == ".jpg" || ext == ".jpeg" || ext == ".gif" || ext == ".bmp")
+        if (ext == ".png" || ext == ".jpg" || ext == ".jpeg" || ext == ".gif" || ext == ".bmp"
+            || ext == ".mp4" || ext == ".mov" || ext == ".m4v" || ext == ".dxv")
             return true;
     }
     return false;
@@ -153,6 +166,14 @@ void VisualPanel::filesDropped (const juce::StringArray& files, int, int)
             library.addUserVisual (file.getFileNameWithoutExtension(),
                                    VisualElement::VisualKind::Image,
                                    juce::Colours::white, imgParams);
+        }
+        else if (ext == ".mp4" || ext == ".mov" || ext == ".m4v" || ext == ".dxv")
+        {
+            juce::StringPairArray vidParams;
+            vidParams.set ("videoPath", file.getFullPathName());
+            library.addUserVisual (file.getFileNameWithoutExtension(),
+                                   VisualElement::VisualKind::Video,
+                                   juce::Colours::white, vidParams);
         }
     }
     rebuild();

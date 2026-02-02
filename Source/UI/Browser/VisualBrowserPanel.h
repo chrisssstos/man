@@ -39,6 +39,7 @@ private:
 
     juce::TextButton addToLibraryButton { "Add to Library" };
     juce::TextButton loadImageButton { "Load Image..." };
+    juce::TextButton loadVideoButton { "Load Video..." };
 
     // Colour button
     juce::TextButton colourButton { "Colour" };

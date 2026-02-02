@@ -26,6 +26,8 @@ std::vector<VisualParamEditor::ParamDef> VisualParamEditor::getParamDefs (Visual
             };
         case VisualElement::VisualKind::Image:
             return {};
+        case VisualElement::VisualKind::Video:
+            return {};
     }
     return {};
 }

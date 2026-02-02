@@ -1,7 +1,7 @@
 #include "ElementTile.h"
 
-ElementTile::ElementTile (Element* elem)
-    : element (elem)
+ElementTile::ElementTile (Element* elem, SampleManager* sm)
+    : element (elem), sampleMgr (sm)
 {
     if (auto* vis = dynamic_cast<VisualElement*> (elem))
     {
@@ -101,23 +101,92 @@ void ElementTile::paint (juce::Graphics& g)
     }
     else if (elemType == ElementType::Sound)
     {
-        // Build sound icon path once, then reuse
-        if (! soundIconBuilt)
+        // Build waveform path from sample data
+        if (! waveformBuilt)
         {
-            soundIcon.clear();
-            float cx = visualArea.getCentreX();
-            float cy = visualArea.getCentreY();
-            for (int i = 1; i <= 3; ++i)
+            waveformPath.clear();
+            const juce::AudioBuffer<float>* audioData = nullptr;
+
+            if (sampleMgr != nullptr)
             {
-                float r = 8.0f * i;
-                soundIcon.addCentredArc (cx, cy, r, r, 0,
-                                  -juce::MathConstants<float>::pi * 0.3f,
-                                   juce::MathConstants<float>::pi * 0.3f, true);
+                if (auto* snd = dynamic_cast<SoundElement*> (element))
+                {
+                    auto* loaded = sampleMgr->loadSample (snd->getSamplePath());
+                    if (loaded != nullptr)
+                        audioData = &loaded->buffer;
+                }
             }
-            soundIconBuilt = true;
+
+            if (audioData != nullptr && audioData->getNumSamples() > 0)
+            {
+                const float* samples = audioData->getReadPointer (0);
+                int numSamples = audioData->getNumSamples();
+                int numPoints = (int) visualArea.getWidth();
+                if (numPoints < 2) numPoints = 2;
+                int samplesPerPoint = numSamples / numPoints;
+                if (samplesPerPoint < 1) samplesPerPoint = 1;
+
+                float midY = visualArea.getCentreY();
+                float halfH = visualArea.getHeight() * 0.45f;
+
+                for (int i = 0; i < numPoints; ++i)
+                {
+                    int start = i * samplesPerPoint;
+                    int end = juce::jmin (start + samplesPerPoint, numSamples);
+                    float maxVal = 0.0f;
+                    for (int s = start; s < end; ++s)
+                        maxVal = juce::jmax (maxVal, std::abs (samples[s]));
+
+                    float x = visualArea.getX() + (float) i;
+                    float top = midY - maxVal * halfH;
+                    float bot = midY + maxVal * halfH;
+
+                    if (i == 0)
+                    {
+                        waveformPath.startNewSubPath (x, top);
+                    }
+                    else
+                    {
+                        waveformPath.lineTo (x, top);
+                    }
+
+                    // Store bottom points for the return path
+                }
+
+                // Return path along the bottom
+                for (int i = numPoints - 1; i >= 0; --i)
+                {
+                    int start = i * samplesPerPoint;
+                    int end = juce::jmin (start + samplesPerPoint, numSamples);
+                    float maxVal = 0.0f;
+                    for (int s = start; s < end; ++s)
+                        maxVal = juce::jmax (maxVal, std::abs (samples[s]));
+
+                    float x = visualArea.getX() + (float) i;
+                    float bot = midY + maxVal * halfH;
+                    waveformPath.lineTo (x, bot);
+                }
+
+                waveformPath.closeSubPath();
+            }
+
+            waveformBuilt = true;
         }
-        g.setColour (tileColour);
-        g.strokePath (soundIcon, juce::PathStrokeType (1.5f));
+
+        if (! waveformPath.isEmpty())
+        {
+            g.setColour (tileColour.withAlpha (0.6f));
+            g.fillPath (waveformPath);
+            g.setColour (tileColour);
+            g.strokePath (waveformPath, juce::PathStrokeType (0.5f));
+        }
+        else
+        {
+            // Fallback if no sample data
+            g.setColour (tileColour.withAlpha (0.5f));
+            g.setFont (juce::FontOptions (12.0f));
+            g.drawText ("SND", visualArea, juce::Justification::centred);
+        }
     }
 
     // Play/preview button

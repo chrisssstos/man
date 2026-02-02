@@ -34,7 +34,7 @@ private:
 class VisualElement : public Element
 {
 public:
-    enum class VisualKind { Waveform, Geometric, Particle, Image };
+    enum class VisualKind { Waveform, Geometric, Particle, Image, Video };
 
     VisualElement (ElementID id, juce::String name, VisualKind kind,
                    juce::Colour baseColour, juce::StringPairArray params);

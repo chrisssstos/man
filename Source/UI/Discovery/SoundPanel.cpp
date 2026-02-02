@@ -41,7 +41,7 @@ void SoundPanel::rebuild()
 
     for (auto* snd : library.getAllSounds())
     {
-        auto* tile = tiles.add (new ElementTile (snd));
+        auto* tile = tiles.add (new ElementTile (snd, &audioEngine.getSampleManager()));
         tileContainer.addAndMakeVisible (tile);
         if (tileListener)
             tile->addListener (tileListener);

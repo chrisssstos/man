@@ -25,12 +25,10 @@ void AudioEngine::audioDeviceAboutToStart (juce::AudioIODevice* device)
 {
     sampleRate = device->getCurrentSampleRate();
     synthesiser.setCurrentPlaybackSampleRate (sampleRate);
-    previewTransport.prepareToPlay (device->getCurrentBufferSizeSamples(), sampleRate);
 }
 
 void AudioEngine::audioDeviceStopped()
 {
-    previewTransport.releaseResources();
 }
 
 void AudioEngine::audioDeviceIOCallbackWithContext (
@@ -127,13 +125,35 @@ void AudioEngine::audioDeviceIOCallbackWithContext (
     juce::MidiBuffer emptyMidi;
     synthesiser.renderNextBlock (buffer, emptyMidi, 0, numSamples);
 
-    // Mix in preview audio
+    // Mix in preview audio from memory buffer
+    if (previewPlaying.load())
     {
         juce::ScopedLock sl (previewLock);
-        if (previewTransport.isPlaying())
+        if (previewBuffer != nullptr)
         {
-            juce::AudioSourceChannelInfo info (&buffer, 0, numSamples);
-            previewTransport.getNextAudioBlock (info);
+            int pos = previewPosition;
+            int totalPreviewSamples = previewBuffer->getNumSamples();
+            int previewChannels = previewBuffer->getNumChannels();
+            double ratio = previewSampleRate / sampleRate;
+
+            for (int i = 0; i < numSamples; ++i)
+            {
+                int srcPos = (int) (pos + i * ratio);
+                if (srcPos >= totalPreviewSamples)
+                {
+                    previewPlaying.store (false);
+                    break;
+                }
+
+                for (int ch = 0; ch < numOutputChannels; ++ch)
+                {
+                    int srcCh = ch % previewChannels;
+                    buffer.addSample (ch, i,
+                        previewBuffer->getSample (srcCh, srcPos));
+                }
+            }
+
+            previewPosition = (int) (pos + numSamples * ratio);
         }
     }
 }
@@ -186,7 +206,7 @@ void AudioEngine::triggerElement (const ElementID& id)
     auto* elem = dynamic_cast<AudioVisualElement*> (elementLibrary.getElementById (id));
     if (elem != nullptr && elem->getMidiNote() >= 0)
     {
-        // Stop any existing note-off for this element first
+        // Stop any existing note for this element first (clean retrigger)
         {
             juce::ScopedLock sl (noteOffLock);
             pendingNoteOffs.erase (
@@ -195,6 +215,7 @@ void AudioEngine::triggerElement (const ElementID& id)
                 pendingNoteOffs.end());
         }
 
+        synthesiser.noteOff (1, elem->getMidiNote(), 1.0f, false);
         synthesiser.noteOn (1, elem->getMidiNote(), 1.0f);
 
         {
@@ -310,23 +331,25 @@ std::set<juce::String> AudioEngine::getActiveElementIds() const
 
 void AudioEngine::previewFile (const juce::File& file)
 {
-    stopPreview();
-
+    // Load the file into a memory buffer off the audio path
     auto* reader = previewFormatManager.createReaderFor (file);
     if (reader == nullptr)
         return;
 
+    auto buffer = std::make_unique<juce::AudioBuffer<float>> (
+        (int) reader->numChannels, (int) reader->lengthInSamples);
+    reader->read (buffer.get(), 0, (int) reader->lengthInSamples, 0, true, true);
+    double fileSampleRate = reader->sampleRate;
+    delete reader;
+
     juce::ScopedLock sl (previewLock);
-    previewReaderSource = std::make_unique<juce::AudioFormatReaderSource> (reader, true);
-    previewTransport.setSource (previewReaderSource.get(), 0, nullptr, reader->sampleRate);
-    previewTransport.setPosition (0.0);
-    previewTransport.start();
+    previewBuffer = std::move (buffer);
+    previewSampleRate = fileSampleRate;
+    previewPosition = 0;
+    previewPlaying.store (true);
 }
 
 void AudioEngine::stopPreview()
 {
-    juce::ScopedLock sl (previewLock);
-    previewTransport.stop();
-    previewTransport.setSource (nullptr);
-    previewReaderSource.reset();
+    previewPlaying.store (false);
 }

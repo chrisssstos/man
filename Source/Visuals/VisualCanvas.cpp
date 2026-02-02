@@ -6,6 +6,8 @@ VisualCanvas::VisualCanvas (ElementLibrary& library)
     renderers[VisualElement::VisualKind::Waveform]  = VisualRenderer::create (VisualElement::VisualKind::Waveform);
     renderers[VisualElement::VisualKind::Geometric] = VisualRenderer::create (VisualElement::VisualKind::Geometric);
     renderers[VisualElement::VisualKind::Particle]  = VisualRenderer::create (VisualElement::VisualKind::Particle);
+    renderers[VisualElement::VisualKind::Image]     = VisualRenderer::create (VisualElement::VisualKind::Image);
+    renderers[VisualElement::VisualKind::Video]     = VisualRenderer::create (VisualElement::VisualKind::Video);
 
     startTimerHz (30);
 }

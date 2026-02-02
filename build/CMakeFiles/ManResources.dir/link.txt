@@ -1,0 +1,2 @@
+/usr/bin/ar qc libManResources.a CMakeFiles/ManResources.dir/juce_binarydata_ManResources/JuceLibraryCode/BinaryData1.cpp.o
+/usr/bin/ranlib libManResources.a
