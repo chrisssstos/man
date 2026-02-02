@@ -23,6 +23,8 @@ public:
 
     bool isSelected() const { return selected; }
     void setSelected (bool s);
+    bool isActive() const { return active; }
+    void setActive (bool a);
 
     struct Listener
     {
@@ -45,6 +47,7 @@ private:
     ElementType elemType;
     std::unique_ptr<VisualRenderer> renderer;
     bool selected = false;
+    bool active = false;
     float animPhase = 0.0f;
     float dashOffset = 0.0f;
     juce::Colour tileColour;

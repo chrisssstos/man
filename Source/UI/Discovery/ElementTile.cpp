@@ -67,9 +67,19 @@ void ElementTile::paint (juce::Graphics& g)
     auto bounds = getLocalBounds().toFloat();
 
     // Background — match TriggerPad style with 8px radius
-    auto bgColour = selected ? juce::Colour (0xff3a3a5c) : juce::Colour (0xff1a1a3a);
+    auto bgColour = (selected || active) ? juce::Colour (0xff3a3a5c) : juce::Colour (0xff1a1a3a);
     g.setColour (bgColour);
     g.fillRoundedRectangle (bounds, 8.0f);
+
+    // Active state (press-and-hold glow)
+    if (active)
+    {
+        g.setColour (tileColour.withAlpha (0.3f));
+        g.fillRoundedRectangle (bounds, 8.0f);
+
+        g.setColour (tileColour);
+        g.drawRoundedRectangle (bounds.reduced (1.0f), 8.0f, 3.0f);
+    }
 
     // Border — match TriggerPad: element colour, thicker when selected
     if (selected)
@@ -139,7 +149,6 @@ void ElementTile::paint (juce::Graphics& g)
 
                     float x = visualArea.getX() + (float) i;
                     float top = midY - maxVal * halfH;
-                    float bot = midY + maxVal * halfH;
 
                     if (i == 0)
                     {
@@ -223,11 +232,24 @@ void ElementTile::mouseDown (const juce::MouseEvent& e)
         return;
     }
 
+    if (elemType == ElementType::AudioVisual)
+    {
+        setActive (true);
+        listeners.call ([this] (Listener& l) { l.tilePressed (this); });
+        return;
+    }
+
     listeners.call ([this] (Listener& l) { l.tileClicked (this); });
 }
 
 void ElementTile::mouseUp (const juce::MouseEvent& e)
 {
+    if (elemType == ElementType::AudioVisual && active)
+    {
+        setActive (false);
+        listeners.call ([this] (Listener& l) { l.tileReleased (this); });
+    }
+
     bool hasAudio = (elemType == ElementType::Sound || elemType == ElementType::AudioVisual);
     bool overPlay = hasAudio && getPlayButtonBounds().contains (e.position);
     if (playButtonHovered != overPlay)
@@ -269,6 +291,15 @@ void ElementTile::mouseDrag (const juce::MouseEvent& e)
 void ElementTile::mouseDoubleClick (const juce::MouseEvent&)
 {
     listeners.call ([this] (Listener& l) { l.tileDoubleClicked (this); });
+}
+
+void ElementTile::setActive (bool a)
+{
+    if (active != a)
+    {
+        active = a;
+        repaint();
+    }
 }
 
 void ElementTile::setSelected (bool s)

@@ -143,19 +143,19 @@ void DiscoveryView::tileClicked (ElementTile* tile)
             tile->setSelected (true);
         }
     }
-    else if (type == ElementTile::ElementType::AudioVisual)
-    {
-        // AV tile in discovery panel - just play it, no selection
-        audioEngine.triggerElement (tile->getElement()->getId());
-    }
-
     updateCombineButton();
 }
 
-void DiscoveryView::tileDoubleClicked (ElementTile* tile)
+void DiscoveryView::tileDoubleClicked (ElementTile*) {}
+
+void DiscoveryView::tilePressed (ElementTile* tile)
 {
-    if (tile->getElementType() == ElementTile::ElementType::AudioVisual)
-        audioEngine.triggerElement (tile->getElement()->getId());
+    audioEngine.triggerElement (tile->getElement()->getId());
+}
+
+void DiscoveryView::tileReleased (ElementTile* tile)
+{
+    audioEngine.stopElement (tile->getElement()->getId());
 }
 
 void DiscoveryView::tilePlayClicked (ElementTile* tile)

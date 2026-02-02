@@ -25,6 +25,8 @@ public:
     void tileClicked (ElementTile* tile) override;
     void tileDoubleClicked (ElementTile* tile) override;
     void tilePlayClicked (ElementTile* tile) override;
+    void tilePressed (ElementTile* tile) override;
+    void tileReleased (ElementTile* tile) override;
     void onNewDiscovery (const ElementID& id) override;
 
     void rebuild();
