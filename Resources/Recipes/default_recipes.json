@@ -1,0 +1,196 @@
+{
+  "recipes": [
+    {
+      "ingredientA": "vis_waveform_sine",
+      "ingredientB": "snd_kick",
+      "result": {
+        "id": "av_pulse_kick",
+        "name": "Pulse Kick",
+        "samplePath": "kick.wav",
+        "visualKind": "Waveform",
+        "colour": "ffff4444",
+        "visualParams": { "frequency": "4.0", "amplitude": "0.8", "type": "sine" }
+      }
+    },
+    {
+      "ingredientA": "vis_waveform_saw",
+      "ingredientB": "snd_snare",
+      "result": {
+        "id": "av_razor_snap",
+        "name": "Razor Snap",
+        "samplePath": "snare.wav",
+        "visualKind": "Waveform",
+        "colour": "ffff8844",
+        "visualParams": { "frequency": "6.0", "amplitude": "0.7", "type": "saw" }
+      }
+    },
+    {
+      "ingredientA": "vis_waveform_square",
+      "ingredientB": "snd_bass_pluck",
+      "result": {
+        "id": "av_digital_bass",
+        "name": "Digital Bass",
+        "samplePath": "bass_pluck.wav",
+        "visualKind": "Waveform",
+        "colour": "ff88ff44",
+        "visualParams": { "frequency": "2.0", "amplitude": "0.9", "type": "square" }
+      }
+    },
+    {
+      "ingredientA": "vis_geometric_tri",
+      "ingredientB": "snd_hihat",
+      "result": {
+        "id": "av_prism_tick",
+        "name": "Prism Tick",
+        "samplePath": "hihat.wav",
+        "visualKind": "Geometric",
+        "colour": "ffff6666",
+        "visualParams": { "sides": "3", "rotation_speed": "3.0", "fill": "false" }
+      }
+    },
+    {
+      "ingredientA": "vis_geometric_hex",
+      "ingredientB": "snd_pad_warm",
+      "result": {
+        "id": "av_crystal_pad",
+        "name": "Crystal Pad",
+        "samplePath": "pad_warm.wav",
+        "visualKind": "Geometric",
+        "colour": "ff44aaff",
+        "visualParams": { "sides": "6", "rotation_speed": "0.5", "fill": "true" }
+      }
+    },
+    {
+      "ingredientA": "vis_geometric_oct",
+      "ingredientB": "snd_bell_tone",
+      "result": {
+        "id": "av_glass_bell",
+        "name": "Glass Bell",
+        "samplePath": "bell_tone.wav",
+        "visualKind": "Geometric",
+        "colour": "ffcc88ff",
+        "visualParams": { "sides": "8", "rotation_speed": "0.8", "fill": "false" }
+      }
+    },
+    {
+      "ingredientA": "vis_particle_spark",
+      "ingredientB": "snd_hihat",
+      "result": {
+        "id": "av_sparkle_hat",
+        "name": "Sparkle Hat",
+        "samplePath": "hihat.wav",
+        "visualKind": "Particle",
+        "colour": "ffffdd44",
+        "visualParams": { "count": "30", "speed": "3.0", "size": "3.0" }
+      }
+    },
+    {
+      "ingredientA": "vis_particle_dust",
+      "ingredientB": "snd_fx_riser",
+      "result": {
+        "id": "av_nebula_rise",
+        "name": "Nebula Rise",
+        "samplePath": "fx_riser.wav",
+        "visualKind": "Particle",
+        "colour": "ff8888cc",
+        "visualParams": { "count": "60", "speed": "1.0", "size": "2.0" }
+      }
+    },
+    {
+      "ingredientA": "vis_waveform_sine",
+      "ingredientB": "snd_vocal_chop",
+      "result": {
+        "id": "av_voice_wave",
+        "name": "Voice Wave",
+        "samplePath": "vocal_chop.wav",
+        "visualKind": "Waveform",
+        "colour": "ffff88cc",
+        "visualParams": { "frequency": "3.0", "amplitude": "0.6", "type": "sine" }
+      }
+    },
+    {
+      "ingredientA": "vis_particle_spark",
+      "ingredientB": "snd_bell_tone",
+      "result": {
+        "id": "av_firebell",
+        "name": "Firebell",
+        "samplePath": "bell_tone.wav",
+        "visualKind": "Particle",
+        "colour": "ffffaa22",
+        "visualParams": { "count": "25", "speed": "2.5", "size": "4.0" }
+      }
+    },
+    {
+      "ingredientA": "vis_geometric_tri",
+      "ingredientB": "snd_bass_pluck",
+      "result": {
+        "id": "av_pyramid_bass",
+        "name": "Pyramid Bass",
+        "samplePath": "bass_pluck.wav",
+        "visualKind": "Geometric",
+        "colour": "ffdd4444",
+        "visualParams": { "sides": "3", "rotation_speed": "0.5", "fill": "true" }
+      }
+    },
+    {
+      "ingredientA": "vis_waveform_saw",
+      "ingredientB": "snd_pad_warm",
+      "result": {
+        "id": "av_serrated_pad",
+        "name": "Serrated Pad",
+        "samplePath": "pad_warm.wav",
+        "visualKind": "Waveform",
+        "colour": "ffff6600",
+        "visualParams": { "frequency": "4.0", "amplitude": "0.5", "type": "saw" }
+      }
+    },
+    {
+      "ingredientA": "av_pulse_kick",
+      "ingredientB": "av_crystal_pad",
+      "result": {
+        "id": "av_resonant_engine",
+        "name": "Resonant Engine",
+        "samplePath": "kick.wav",
+        "visualKind": "Geometric",
+        "colour": "ffff88ff",
+        "visualParams": { "sides": "8", "rotation_speed": "2.0", "fill": "false" }
+      }
+    },
+    {
+      "ingredientA": "av_sparkle_hat",
+      "ingredientB": "av_razor_snap",
+      "result": {
+        "id": "av_shattered_light",
+        "name": "Shattered Light",
+        "samplePath": "snare.wav",
+        "visualKind": "Particle",
+        "colour": "ffffffaa",
+        "visualParams": { "count": "50", "speed": "4.0", "size": "2.5" }
+      }
+    },
+    {
+      "ingredientA": "av_digital_bass",
+      "ingredientB": "av_nebula_rise",
+      "result": {
+        "id": "av_cosmic_drop",
+        "name": "Cosmic Drop",
+        "samplePath": "bass_pluck.wav",
+        "visualKind": "Particle",
+        "colour": "ff44ffaa",
+        "visualParams": { "count": "80", "speed": "1.5", "size": "3.0" }
+      }
+    },
+    {
+      "ingredientA": "av_voice_wave",
+      "ingredientB": "av_glass_bell",
+      "result": {
+        "id": "av_choir_crystal",
+        "name": "Choir Crystal",
+        "samplePath": "bell_tone.wav",
+        "visualKind": "Geometric",
+        "colour": "ffddaaff",
+        "visualParams": { "sides": "12", "rotation_speed": "0.3", "fill": "true" }
+      }
+    }
+  ]
+}
