@@ -980,6 +980,30 @@ Source/Model/Sketch.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/Model/Sketch.cpp.s
 .PHONY : Source/Model/Sketch.cpp.s
 
+Source/Network/YouTubeDownloader.o: Source/Network/YouTubeDownloader.cpp.o
+.PHONY : Source/Network/YouTubeDownloader.o
+
+# target to build an object file
+Source/Network/YouTubeDownloader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.o
+.PHONY : Source/Network/YouTubeDownloader.cpp.o
+
+Source/Network/YouTubeDownloader.i: Source/Network/YouTubeDownloader.cpp.i
+.PHONY : Source/Network/YouTubeDownloader.i
+
+# target to preprocess a source file
+Source/Network/YouTubeDownloader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.i
+.PHONY : Source/Network/YouTubeDownloader.cpp.i
+
+Source/Network/YouTubeDownloader.s: Source/Network/YouTubeDownloader.cpp.s
+.PHONY : Source/Network/YouTubeDownloader.s
+
+# target to generate assembly for a file
+Source/Network/YouTubeDownloader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.s
+.PHONY : Source/Network/YouTubeDownloader.cpp.s
+
 Source/UI/Arrangement/ArrangementView.o: Source/UI/Arrangement/ArrangementView.cpp.o
 .PHONY : Source/UI/Arrangement/ArrangementView.o
 
@@ -1220,6 +1244,30 @@ Source/UI/Browser/VisualParamEditor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.s
 .PHONY : Source/UI/Browser/VisualParamEditor.cpp.s
 
+Source/UI/Browser/YouTubeBrowserPanel.o: Source/UI/Browser/YouTubeBrowserPanel.cpp.o
+.PHONY : Source/UI/Browser/YouTubeBrowserPanel.o
+
+# target to build an object file
+Source/UI/Browser/YouTubeBrowserPanel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.o
+.PHONY : Source/UI/Browser/YouTubeBrowserPanel.cpp.o
+
+Source/UI/Browser/YouTubeBrowserPanel.i: Source/UI/Browser/YouTubeBrowserPanel.cpp.i
+.PHONY : Source/UI/Browser/YouTubeBrowserPanel.i
+
+# target to preprocess a source file
+Source/UI/Browser/YouTubeBrowserPanel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.i
+.PHONY : Source/UI/Browser/YouTubeBrowserPanel.cpp.i
+
+Source/UI/Browser/YouTubeBrowserPanel.s: Source/UI/Browser/YouTubeBrowserPanel.cpp.s
+.PHONY : Source/UI/Browser/YouTubeBrowserPanel.s
+
+# target to generate assembly for a file
+Source/UI/Browser/YouTubeBrowserPanel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.s
+.PHONY : Source/UI/Browser/YouTubeBrowserPanel.cpp.s
+
 Source/UI/Common/ModeSelector.o: Source/UI/Common/ModeSelector.cpp.o
 .PHONY : Source/UI/Common/ModeSelector.o
 
@@ -1244,6 +1292,54 @@ Source/UI/Common/ModeSelector.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Common/ModeSelector.cpp.s
 .PHONY : Source/UI/Common/ModeSelector.cpp.s
 
+Source/UI/Common/PageIndicator.o: Source/UI/Common/PageIndicator.cpp.o
+.PHONY : Source/UI/Common/PageIndicator.o
+
+# target to build an object file
+Source/UI/Common/PageIndicator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.o
+.PHONY : Source/UI/Common/PageIndicator.cpp.o
+
+Source/UI/Common/PageIndicator.i: Source/UI/Common/PageIndicator.cpp.i
+.PHONY : Source/UI/Common/PageIndicator.i
+
+# target to preprocess a source file
+Source/UI/Common/PageIndicator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.i
+.PHONY : Source/UI/Common/PageIndicator.cpp.i
+
+Source/UI/Common/PageIndicator.s: Source/UI/Common/PageIndicator.cpp.s
+.PHONY : Source/UI/Common/PageIndicator.s
+
+# target to generate assembly for a file
+Source/UI/Common/PageIndicator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.s
+.PHONY : Source/UI/Common/PageIndicator.cpp.s
+
+Source/UI/Common/SwipeContainer.o: Source/UI/Common/SwipeContainer.cpp.o
+.PHONY : Source/UI/Common/SwipeContainer.o
+
+# target to build an object file
+Source/UI/Common/SwipeContainer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.o
+.PHONY : Source/UI/Common/SwipeContainer.cpp.o
+
+Source/UI/Common/SwipeContainer.i: Source/UI/Common/SwipeContainer.cpp.i
+.PHONY : Source/UI/Common/SwipeContainer.i
+
+# target to preprocess a source file
+Source/UI/Common/SwipeContainer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.i
+.PHONY : Source/UI/Common/SwipeContainer.cpp.i
+
+Source/UI/Common/SwipeContainer.s: Source/UI/Common/SwipeContainer.cpp.s
+.PHONY : Source/UI/Common/SwipeContainer.s
+
+# target to generate assembly for a file
+Source/UI/Common/SwipeContainer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.s
+.PHONY : Source/UI/Common/SwipeContainer.cpp.s
+
 Source/UI/Common/VisualPreview.o: Source/UI/Common/VisualPreview.cpp.o
 .PHONY : Source/UI/Common/VisualPreview.o
 
@@ -1267,6 +1363,30 @@ Source/UI/Common/VisualPreview.s: Source/UI/Common/VisualPreview.cpp.s
 Source/UI/Common/VisualPreview.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Common/VisualPreview.cpp.s
 .PHONY : Source/UI/Common/VisualPreview.cpp.s
+
+Source/UI/Discovery/CombineBar.o: Source/UI/Discovery/CombineBar.cpp.o
+.PHONY : Source/UI/Discovery/CombineBar.o
+
+# target to build an object file
+Source/UI/Discovery/CombineBar.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.o
+.PHONY : Source/UI/Discovery/CombineBar.cpp.o
+
+Source/UI/Discovery/CombineBar.i: Source/UI/Discovery/CombineBar.cpp.i
+.PHONY : Source/UI/Discovery/CombineBar.i
+
+# target to preprocess a source file
+Source/UI/Discovery/CombineBar.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.i
+.PHONY : Source/UI/Discovery/CombineBar.cpp.i
+
+Source/UI/Discovery/CombineBar.s: Source/UI/Discovery/CombineBar.cpp.s
+.PHONY : Source/UI/Discovery/CombineBar.s
+
+# target to generate assembly for a file
+Source/UI/Discovery/CombineBar.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.s
+.PHONY : Source/UI/Discovery/CombineBar.cpp.s
 
 Source/UI/Discovery/CombineZone.o: Source/UI/Discovery/CombineZone.cpp.o
 .PHONY : Source/UI/Discovery/CombineZone.o
@@ -1363,6 +1483,30 @@ Source/UI/Discovery/DiscoveryView.s: Source/UI/Discovery/DiscoveryView.cpp.s
 Source/UI/Discovery/DiscoveryView.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Discovery/DiscoveryView.cpp.s
 .PHONY : Source/UI/Discovery/DiscoveryView.cpp.s
+
+Source/UI/Discovery/ElementEditor.o: Source/UI/Discovery/ElementEditor.cpp.o
+.PHONY : Source/UI/Discovery/ElementEditor.o
+
+# target to build an object file
+Source/UI/Discovery/ElementEditor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.o
+.PHONY : Source/UI/Discovery/ElementEditor.cpp.o
+
+Source/UI/Discovery/ElementEditor.i: Source/UI/Discovery/ElementEditor.cpp.i
+.PHONY : Source/UI/Discovery/ElementEditor.i
+
+# target to preprocess a source file
+Source/UI/Discovery/ElementEditor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.i
+.PHONY : Source/UI/Discovery/ElementEditor.cpp.i
+
+Source/UI/Discovery/ElementEditor.s: Source/UI/Discovery/ElementEditor.cpp.s
+.PHONY : Source/UI/Discovery/ElementEditor.s
+
+# target to generate assembly for a file
+Source/UI/Discovery/ElementEditor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/man.dir/build.make CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.s
+.PHONY : Source/UI/Discovery/ElementEditor.cpp.s
 
 Source/UI/Discovery/ElementTile.o: Source/UI/Discovery/ElementTile.cpp.o
 .PHONY : Source/UI/Discovery/ElementTile.o
@@ -1861,6 +2005,9 @@ help:
 	@echo "... Source/Model/Sketch.o"
 	@echo "... Source/Model/Sketch.i"
 	@echo "... Source/Model/Sketch.s"
+	@echo "... Source/Network/YouTubeDownloader.o"
+	@echo "... Source/Network/YouTubeDownloader.i"
+	@echo "... Source/Network/YouTubeDownloader.s"
 	@echo "... Source/UI/Arrangement/ArrangementView.o"
 	@echo "... Source/UI/Arrangement/ArrangementView.i"
 	@echo "... Source/UI/Arrangement/ArrangementView.s"
@@ -1891,12 +2038,24 @@ help:
 	@echo "... Source/UI/Browser/VisualParamEditor.o"
 	@echo "... Source/UI/Browser/VisualParamEditor.i"
 	@echo "... Source/UI/Browser/VisualParamEditor.s"
+	@echo "... Source/UI/Browser/YouTubeBrowserPanel.o"
+	@echo "... Source/UI/Browser/YouTubeBrowserPanel.i"
+	@echo "... Source/UI/Browser/YouTubeBrowserPanel.s"
 	@echo "... Source/UI/Common/ModeSelector.o"
 	@echo "... Source/UI/Common/ModeSelector.i"
 	@echo "... Source/UI/Common/ModeSelector.s"
+	@echo "... Source/UI/Common/PageIndicator.o"
+	@echo "... Source/UI/Common/PageIndicator.i"
+	@echo "... Source/UI/Common/PageIndicator.s"
+	@echo "... Source/UI/Common/SwipeContainer.o"
+	@echo "... Source/UI/Common/SwipeContainer.i"
+	@echo "... Source/UI/Common/SwipeContainer.s"
 	@echo "... Source/UI/Common/VisualPreview.o"
 	@echo "... Source/UI/Common/VisualPreview.i"
 	@echo "... Source/UI/Common/VisualPreview.s"
+	@echo "... Source/UI/Discovery/CombineBar.o"
+	@echo "... Source/UI/Discovery/CombineBar.i"
+	@echo "... Source/UI/Discovery/CombineBar.s"
 	@echo "... Source/UI/Discovery/CombineZone.o"
 	@echo "... Source/UI/Discovery/CombineZone.i"
 	@echo "... Source/UI/Discovery/CombineZone.s"
@@ -1909,6 +2068,9 @@ help:
 	@echo "... Source/UI/Discovery/DiscoveryView.o"
 	@echo "... Source/UI/Discovery/DiscoveryView.i"
 	@echo "... Source/UI/Discovery/DiscoveryView.s"
+	@echo "... Source/UI/Discovery/ElementEditor.o"
+	@echo "... Source/UI/Discovery/ElementEditor.i"
+	@echo "... Source/UI/Discovery/ElementEditor.s"
 	@echo "... Source/UI/Discovery/ElementTile.o"
 	@echo "... Source/UI/Discovery/ElementTile.i"
 	@echo "... Source/UI/Discovery/ElementTile.s"

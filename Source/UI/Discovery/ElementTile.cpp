@@ -29,7 +29,6 @@ ElementTile::ElementTile (Element* elem, SampleManager* sm)
     setMouseCursor (juce::MouseCursor::PointingHandCursor);
     setRepaintsOnMouseActivity (false);
 
-    // Match TriggerPad: 30fps for animated tiles
     if (needsAnimation)
         startTimerHz (30);
 }
@@ -41,7 +40,7 @@ ElementTile::~ElementTile()
 
 void ElementTile::timerCallback()
 {
-    animPhase += 1.0f / (30.0f * 3.0f); // 3-second cycle at 30fps
+    animPhase += 1.0f / (30.0f * 3.0f);
     if (animPhase >= 1.0f)
         animPhase -= 1.0f;
 
@@ -58,53 +57,57 @@ void ElementTile::timerCallback()
 juce::Rectangle<float> ElementTile::getPlayButtonBounds() const
 {
     auto bounds = getLocalBounds().toFloat();
-    float btnSize = 22.0f;
-    return { bounds.getRight() - btnSize - 4.0f, bounds.getY() + 4.0f, btnSize, btnSize };
+    float btnSize = 32.0f;
+    return { bounds.getRight() - btnSize - 6.0f, bounds.getY() + 6.0f, btnSize, btnSize };
 }
 
 void ElementTile::paint (juce::Graphics& g)
 {
     auto bounds = getLocalBounds().toFloat();
 
-    // Background — match TriggerPad style with 8px radius
-    auto bgColour = (selected || active) ? juce::Colour (0xff3a3a5c) : juce::Colour (0xff1a1a3a);
+    // Outer glow for selected state
+    if (selected)
+    {
+        g.setColour (tileColour.withAlpha (0.15f));
+        g.fillRoundedRectangle (bounds.expanded (3.0f), TouchUI::kCornerRadius + 3.0f);
+    }
+
+    // Background
+    auto bgColour = (selected || active) ? juce::Colour (0xff3a3a5c) : juce::Colour (TouchUI::kBgCard);
     g.setColour (bgColour);
-    g.fillRoundedRectangle (bounds, 8.0f);
+    g.fillRoundedRectangle (bounds, TouchUI::kCornerRadius);
 
     // Active state (press-and-hold glow)
     if (active)
     {
         g.setColour (tileColour.withAlpha (0.3f));
-        g.fillRoundedRectangle (bounds, 8.0f);
+        g.fillRoundedRectangle (bounds, TouchUI::kCornerRadius);
 
         g.setColour (tileColour);
-        g.drawRoundedRectangle (bounds.reduced (1.0f), 8.0f, 3.0f);
+        g.drawRoundedRectangle (bounds.reduced (1.0f), TouchUI::kCornerRadius, 3.0f);
     }
 
-    // Border — match TriggerPad: element colour, thicker when selected
+    // Border
     if (selected)
     {
-        // Pulsing glow fill
         float pulse = 0.7f + 0.3f * std::sin (dashOffset * 0.52f);
         g.setColour (tileColour.withAlpha (pulse * 0.2f));
-        g.fillRoundedRectangle (bounds, 8.0f);
+        g.fillRoundedRectangle (bounds, TouchUI::kCornerRadius);
 
-        // Bright coloured border like TriggerPad active state
         g.setColour (tileColour);
-        g.drawRoundedRectangle (bounds.reduced (1.0f), 8.0f, 3.0f);
+        g.drawRoundedRectangle (bounds.reduced (1.0f), TouchUI::kCornerRadius, 3.0f);
 
-        // Inner white accent
         g.setColour (juce::Colours::white.withAlpha (0.5f));
-        g.drawRoundedRectangle (bounds.reduced (3.5f), 6.0f, 1.0f);
+        g.drawRoundedRectangle (bounds.reduced (3.5f), TouchUI::kCornerRadius - 2.0f, 1.0f);
     }
     else
     {
         g.setColour (tileColour.withAlpha (0.4f));
-        g.drawRoundedRectangle (bounds.reduced (1.0f), 8.0f, 1.0f);
+        g.drawRoundedRectangle (bounds.reduced (1.0f), TouchUI::kCornerRadius, 1.0f);
     }
 
-    // Visual content area — more space like TriggerPad
-    auto visualArea = bounds.reduced (8.0f).withTrimmedBottom (20.0f);
+    // Visual content area
+    auto visualArea = bounds.reduced (10.0f).withTrimmedBottom (24.0f);
     if (renderer)
     {
         renderer->paint (g, visualArea, animPhase, tileColour, visualParams);
@@ -151,18 +154,11 @@ void ElementTile::paint (juce::Graphics& g)
                     float top = midY - maxVal * halfH;
 
                     if (i == 0)
-                    {
                         waveformPath.startNewSubPath (x, top);
-                    }
                     else
-                    {
                         waveformPath.lineTo (x, top);
-                    }
-
-                    // Store bottom points for the return path
                 }
 
-                // Return path along the bottom
                 for (int i = numPoints - 1; i >= 0; --i)
                 {
                     int start = i * samplesPerPoint;
@@ -191,14 +187,13 @@ void ElementTile::paint (juce::Graphics& g)
         }
         else
         {
-            // Fallback if no sample data
             g.setColour (tileColour.withAlpha (0.5f));
-            g.setFont (juce::FontOptions (12.0f));
+            g.setFont (juce::FontOptions (TouchUI::kFontTiny));
             g.drawText ("SND", visualArea, juce::Justification::centred);
         }
     }
 
-    // Play/preview button
+    // Play/preview button (32px)
     bool hasAudio = (elemType == ElementType::Sound || elemType == ElementType::AudioVisual);
     if (hasAudio)
     {
@@ -206,20 +201,19 @@ void ElementTile::paint (juce::Graphics& g)
         g.setColour (juce::Colour (playButtonHovered ? 0xcc44dd88u : 0x8833aa66u));
         g.fillEllipse (playBounds);
 
-        // Play triangle
         juce::Path triangle;
-        float cx = playBounds.getCentreX() + 1.0f;
+        float cx = playBounds.getCentreX() + 1.5f;
         float cy = playBounds.getCentreY();
-        float sz = 6.0f;
+        float sz = 8.0f;
         triangle.addTriangle (cx - sz * 0.5f, cy - sz, cx - sz * 0.5f, cy + sz, cx + sz, cy);
         g.setColour (juce::Colours::white);
         g.fillPath (triangle);
     }
 
-    // Name label
+    // Name label (14px font, 22px area)
     g.setColour (juce::Colours::white);
-    g.setFont (juce::FontOptions (11.0f));
-    auto textArea = bounds.removeFromBottom (18.0f);
+    g.setFont (juce::FontOptions (TouchUI::kFontSmall));
+    auto textArea = bounds.removeFromBottom (22.0f);
     g.drawText (element->getName(), textArea, juce::Justification::centred, true);
 }
 
@@ -309,7 +303,6 @@ void ElementTile::setSelected (bool s)
         selected = s;
         dashOffset = 0.0f;
 
-        // Sound tiles: start/stop timer based on selection
         if (! needsAnimation)
         {
             if (s)

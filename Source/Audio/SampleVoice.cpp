@@ -12,9 +12,13 @@ bool SampleVoice::canPlaySound (juce::SynthesiserSound* sound)
 }
 
 void SampleVoice::startNote (int, float velocity,
-                              juce::SynthesiserSound*, int)
+                              juce::SynthesiserSound* s, int)
 {
-    samplePosition = 0.0;
+    if (auto* sound = dynamic_cast<SampleSound*> (s))
+        samplePosition = (double) sound->getStartSample();
+    else
+        samplePosition = 0.0;
+
     gain = velocity;
     isPlaying = true;
     adsr.noteOn();
@@ -49,14 +53,14 @@ void SampleVoice::renderNextBlock (juce::AudioBuffer<float>& outputBuffer,
     }
 
     const auto& data = sound->getAudioData();
-    const int totalSamples = data.getNumSamples();
+    const int endPos = sound->getEndSample();
     const int numChannels = data.getNumChannels();
     const double ratioCorrection = sound->getSourceSampleRate() / getSampleRate();
 
     for (int i = 0; i < numSamples; ++i)
     {
         auto pos = (int) samplePosition;
-        if (pos >= totalSamples)
+        if (pos >= endPos)
         {
             isPlaying = false;
             clearCurrentNote();

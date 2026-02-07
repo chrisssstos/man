@@ -2,6 +2,7 @@
 #include <JuceHeader.h>
 #include "SoundBrowserPanel.h"
 #include "VisualBrowserPanel.h"
+#include "YouTubeBrowserPanel.h"
 #include "Model/ElementLibrary.h"
 #include "Audio/AudioEngine.h"
 
@@ -32,6 +33,7 @@ private:
     juce::TabbedComponent tabs { juce::TabbedButtonBar::TabsAtTop };
     std::unique_ptr<SoundBrowserPanel> soundBrowser;
     std::unique_ptr<VisualBrowserPanel> visualBrowser;
+    std::unique_ptr<YouTubeBrowserPanel> youtubeBrowser;
 
     juce::TextButton collapseButton;
 

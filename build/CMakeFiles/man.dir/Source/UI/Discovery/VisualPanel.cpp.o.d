@@ -1598,5 +1598,8 @@ CMakeFiles/man.dir/Source/UI/Discovery/VisualPanel.cpp.o: \
   /Users/christos/Documents/Gits/man/Source/Model/Element.h \
   /Users/christos/Documents/Gits/man/Source/Visuals/VisualRenderer.h \
   /Users/christos/Documents/Gits/man/Source/Audio/SampleManager.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Common/TouchConstants.h \
   /Users/christos/Documents/Gits/man/Source/Model/ElementLibrary.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Browser/YouTubeBrowserPanel.h \
+  /Users/christos/Documents/Gits/man/Source/Network/YouTubeDownloader.h \
   /Users/christos/Documents/Gits/man/Source/UI/Browser/BrowserDragSource.h

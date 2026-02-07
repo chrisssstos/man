@@ -14,7 +14,12 @@ void VideoVisual::paint (juce::Graphics& g, juce::Rectangle<float> bounds,
 
     if (decoder.isOpen())
     {
-        auto frame = decoder.getFrameAtPhase (phase);
+        // Apply trim range from params
+        float ts = params.getValue ("trimStart", "0").getFloatValue();
+        float te = params.getValue ("trimEnd", "1").getFloatValue();
+        if (te <= ts) te = 1.0f;
+        float adjustedPhase = ts + phase * (te - ts);
+        auto frame = decoder.getFrameAtPhase (adjustedPhase);
 
         if (frame.isValid())
         {

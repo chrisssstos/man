@@ -15,7 +15,7 @@ void ArrangementTimeline::GridDropTarget::itemDropped (const SourceDetails& deta
     if (lane == nullptr)
         return;
 
-    int localX = details.localPosition.x - TrackLane::kHeaderWidth;
+    int localX = details.localPosition.x - TouchUI::kTrackHeaderWidth;
     double beat = juce::jmax (0.0, (double) localX / owner.pixelsPerBeat);
     if (owner.snapBeats > 0.0)
         beat = std::floor (beat / owner.snapBeats) * owner.snapBeats;
@@ -35,7 +35,7 @@ ArrangementTimeline::ArrangementTimeline (Sketch& sk, ElementLibrary& lib, Sampl
 
 void ArrangementTimeline::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colour (0xff0a0a1e));
+    g.fillAll (juce::Colour (TouchUI::kBgDeep));
 
     auto rulerArea = getLocalBounds().removeFromTop (kRulerHeight);
     paintRuler (g, rulerArea);
@@ -43,7 +43,7 @@ void ArrangementTimeline::paint (juce::Graphics& g)
 
 void ArrangementTimeline::paintRuler (juce::Graphics& g, juce::Rectangle<int> area)
 {
-    g.setColour (juce::Colour (0xff1a1a3a));
+    g.setColour (juce::Colour (TouchUI::kBgCard));
     g.fillRect (area);
 
     g.setColour (juce::Colour (0xff2a2a4a));
@@ -51,7 +51,7 @@ void ArrangementTimeline::paintRuler (juce::Graphics& g, juce::Rectangle<int> ar
                 (float) area.getRight(), (float) area.getBottom() - 0.5f);
 
     int scrollX = gridViewport.getViewPositionX();
-    int gridStart = TrackLane::kHeaderWidth - scrollX;
+    int gridStart = TouchUI::kTrackHeaderWidth - scrollX;
     int totalW = area.getWidth();
     int ppb = (int) pixelsPerBeat;
 
@@ -81,13 +81,13 @@ void ArrangementTimeline::paintRuler (juce::Graphics& g, juce::Rectangle<int> ar
             double secs = seconds - mins * 60.0;
             auto timeStr = juce::String::formatted ("%d:%04.1f", mins, secs);
 
-            g.setFont (juce::FontOptions (11.0f));
+            g.setFont (juce::FontOptions (TouchUI::kFontSmall));
             g.setColour (juce::Colours::white.withAlpha (0.8f));
             g.drawText (juce::String (bar), x + 4, area.getY(), 30, area.getHeight() / 2,
                         juce::Justification::centredLeft);
 
             g.setColour (juce::Colours::white.withAlpha (0.45f));
-            g.setFont (juce::FontOptions (9.0f));
+            g.setFont (juce::FontOptions (TouchUI::kFontTiny));
             g.drawText (timeStr, x + 4, area.getY() + area.getHeight() / 2, 50, area.getHeight() / 2,
                         juce::Justification::centredLeft);
         }
@@ -131,9 +131,9 @@ void ArrangementTimeline::paintRuler (juce::Graphics& g, juce::Rectangle<int> ar
             g.drawVerticalLine (px, (float) area.getY(), (float) area.getBottom());
 
             juce::Path tri;
-            tri.addTriangle ((float) px - 5.0f, (float) area.getY(),
-                             (float) px + 5.0f, (float) area.getY(),
-                             (float) px, (float) area.getY() + 8.0f);
+            tri.addTriangle ((float) px - 6.0f, (float) area.getY(),
+                             (float) px + 6.0f, (float) area.getY(),
+                             (float) px, (float) area.getY() + 10.0f);
             g.setColour (juce::Colour (0xff44ff44));
             g.fillPath (tri);
         }
@@ -151,16 +151,16 @@ void ArrangementTimeline::resized()
     if (totalLen > 0.0)
         numBeats = juce::jmax (numBeats, (int) totalLen + 16);
 
-    int gridW = TrackLane::kHeaderWidth + numBeats * (int) pixelsPerBeat;
-    int gridH = (int) trackLanes.size() * TrackLane::kRowHeight;
+    int gridW = TouchUI::kTrackHeaderWidth + numBeats * (int) pixelsPerBeat;
+    int gridH = (int) trackLanes.size() * TouchUI::kTrackRowHeight;
     gridContainer.setSize (juce::jmax (gridW, area.getWidth()),
                            juce::jmax (gridH, area.getHeight()));
 
     int y = 0;
     for (auto* lane : trackLanes)
     {
-        lane->setBounds (0, y, gridContainer.getWidth(), TrackLane::kRowHeight);
-        y += TrackLane::kRowHeight;
+        lane->setBounds (0, y, gridContainer.getWidth(), TouchUI::kTrackRowHeight);
+        y += TouchUI::kTrackRowHeight;
     }
 }
 
@@ -169,7 +169,7 @@ void ArrangementTimeline::mouseWheelMove (const juce::MouseEvent& e, const juce:
     if (e.mods.isCommandDown())
     {
         int scrollX = gridViewport.getViewPositionX();
-        double cursorXInGrid = (double) (e.x - TrackLane::kHeaderWidth + scrollX);
+        double cursorXInGrid = (double) (e.x - TouchUI::kTrackHeaderWidth + scrollX);
         double beatAtCursor = cursorXInGrid / pixelsPerBeat;
 
         double zoomFactor = 1.0 + wheel.deltaY * 0.3;
@@ -181,7 +181,7 @@ void ArrangementTimeline::mouseWheelMove (const juce::MouseEvent& e, const juce:
             updateTrackLaneZoom();
             resized();
 
-            int newScrollX = (int) (beatAtCursor * pixelsPerBeat) - (e.x - TrackLane::kHeaderWidth);
+            int newScrollX = (int) (beatAtCursor * pixelsPerBeat) - (e.x - TouchUI::kTrackHeaderWidth);
             gridViewport.setViewPosition (juce::jmax (0, newScrollX), gridViewport.getViewPositionY());
 
             repaint();
@@ -193,6 +193,27 @@ void ArrangementTimeline::mouseWheelMove (const juce::MouseEvent& e, const juce:
     }
 }
 
+void ArrangementTimeline::mouseMagnify (const juce::MouseEvent& e, float scaleFactor)
+{
+    int scrollX = gridViewport.getViewPositionX();
+    double cursorXInGrid = (double) (e.x - TouchUI::kTrackHeaderWidth + scrollX);
+    double beatAtCursor = cursorXInGrid / pixelsPerBeat;
+
+    double newPPB = juce::jlimit (kMinPixelsPerBeat, kMaxPixelsPerBeat, pixelsPerBeat * (double) scaleFactor);
+
+    if (newPPB != pixelsPerBeat)
+    {
+        pixelsPerBeat = newPPB;
+        updateTrackLaneZoom();
+        resized();
+
+        int newScrollX = (int) (beatAtCursor * pixelsPerBeat) - (e.x - TouchUI::kTrackHeaderWidth);
+        gridViewport.setViewPosition (juce::jmax (0, newScrollX), gridViewport.getViewPositionY());
+
+        repaint();
+    }
+}
+
 void ArrangementTimeline::mouseDown (const juce::MouseEvent& e)
 {
     auto rulerArea = getLocalBounds().removeFromTop (kRulerHeight);
@@ -201,7 +222,7 @@ void ArrangementTimeline::mouseDown (const juce::MouseEvent& e)
         draggingPlayhead = true;
 
         int scrollX = gridViewport.getViewPositionX();
-        int gridStart = TrackLane::kHeaderWidth - scrollX;
+        int gridStart = TouchUI::kTrackHeaderWidth - scrollX;
         double beat = (double) (e.x - gridStart) / pixelsPerBeat;
         beat = juce::jmax (0.0, beat);
 
@@ -217,7 +238,7 @@ void ArrangementTimeline::mouseDrag (const juce::MouseEvent& e)
     if (draggingPlayhead)
     {
         int scrollX = gridViewport.getViewPositionX();
-        int gridStart = TrackLane::kHeaderWidth - scrollX;
+        int gridStart = TouchUI::kTrackHeaderWidth - scrollX;
         double beat = (double) (e.x - gridStart) / pixelsPerBeat;
         beat = juce::jmax (0.0, beat);
 
@@ -330,6 +351,15 @@ void ArrangementTimeline::trackClipTrackChanged (int clipIndex, int deltaTrack)
     if (newTrack != clip.track)
     {
         sketch.moveClip (clipIndex, clip.startBeat, newTrack);
+        needsRebuildAfterDrag = true;
+    }
+}
+
+void ArrangementTimeline::trackClipDragEnded (int)
+{
+    if (needsRebuildAfterDrag)
+    {
+        needsRebuildAfterDrag = false;
         rebuildClips();
         resized();
     }

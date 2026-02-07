@@ -4,6 +4,7 @@
 #include "Model/Sketch.h"
 #include "Model/ElementLibrary.h"
 #include "Audio/SampleManager.h"
+#include "UI/Common/TouchConstants.h"
 
 class ArrangementTimeline : public juce::Component,
                             public TrackLane::Listener
@@ -14,6 +15,7 @@ public:
     void paint (juce::Graphics& g) override;
     void resized() override;
     void mouseWheelMove (const juce::MouseEvent& e, const juce::MouseWheelDetails& wheel) override;
+    void mouseMagnify (const juce::MouseEvent& e, float scaleFactor) override;
     void mouseDown (const juce::MouseEvent& e) override;
     void mouseDrag (const juce::MouseEvent& e) override;
     void mouseUp (const juce::MouseEvent& e) override;
@@ -33,6 +35,7 @@ public:
     void trackClipMoved (int clipIndex, double newBeat) override;
     void trackClipResized (int clipIndex, double newDuration) override;
     void trackClipTrackChanged (int clipIndex, int deltaTrack) override;
+    void trackClipDragEnded (int clipIndex) override;
 
     struct Listener
     {
@@ -50,7 +53,6 @@ private:
 
     juce::OwnedArray<TrackLane> trackLanes;
 
-    // Inner component that acts as a DragAndDropTarget fallback
     class GridDropTarget : public juce::Component,
                            public juce::DragAndDropTarget
     {
@@ -75,8 +77,9 @@ private:
     double bpm = 120.0;
 
     bool draggingPlayhead = false;
+    bool needsRebuildAfterDrag = false;
     static constexpr int kNumTracks = 12;
-    static constexpr int kRulerHeight = 28;
+    static constexpr int kRulerHeight = 40;
     static constexpr double kMinPixelsPerBeat = 15.0;
     static constexpr double kMaxPixelsPerBeat = 240.0;
 

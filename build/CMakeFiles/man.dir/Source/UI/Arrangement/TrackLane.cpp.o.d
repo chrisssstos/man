@@ -1595,6 +1595,7 @@ CMakeFiles/man.dir/Source/UI/Arrangement/TrackLane.cpp.o: \
   /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_utils/audio_cd/juce_AudioCDReader.h \
   /Users/christos/Documents/Gits/man/build/juce_binarydata_ManResources/JuceLibraryCode/BinaryData.h \
   /Users/christos/Documents/Gits/man/Source/UI/Arrangement/ClipComponent.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Common/TouchConstants.h \
   /Users/christos/Documents/Gits/man/Source/Model/Sketch.h \
   /Users/christos/Documents/Gits/man/Source/Model/Clip.h \
   /Users/christos/Documents/Gits/man/Source/Model/Element.h \

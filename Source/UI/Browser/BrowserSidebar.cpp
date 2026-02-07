@@ -5,9 +5,11 @@ BrowserSidebar::BrowserSidebar (ElementLibrary& lib, AudioEngine& eng)
 {
     soundBrowser = std::make_unique<SoundBrowserPanel> (elementLibrary, audioEngine);
     visualBrowser = std::make_unique<VisualBrowserPanel> (elementLibrary);
+    youtubeBrowser = std::make_unique<YouTubeBrowserPanel> (elementLibrary);
 
     tabs.addTab ("Sounds", juce::Colour (0xff1a1a3a), soundBrowser.get(), false);
     tabs.addTab ("Visuals", juce::Colour (0xff1a1a3a), visualBrowser.get(), false);
+    tabs.addTab ("YouTube", juce::Colour (0xff1a1a3a), youtubeBrowser.get(), false);
     tabs.setTabBarDepth (28);
     addAndMakeVisible (tabs);
 

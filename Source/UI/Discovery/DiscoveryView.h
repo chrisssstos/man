@@ -3,16 +3,21 @@
 #include "VisualPanel.h"
 #include "SoundPanel.h"
 #include "DiscoveryPanel.h"
+#include "CombineBar.h"
+#include "ElementEditor.h"
 #include "DiscoveryAnimation.h"
 #include "Model/ElementLibrary.h"
 #include "Model/RecipeBook.h"
 #include "Model/DiscoveryLog.h"
 #include "Audio/AudioEngine.h"
 #include "Visuals/VisualCanvas.h"
+#include "UI/Common/TouchConstants.h"
 
 class DiscoveryView : public juce::Component,
                       public ElementTile::Listener,
-                      public DiscoveryLog::Listener
+                      public DiscoveryLog::Listener,
+                      public CombineBar::Listener,
+                      public ElementEditor::Listener
 {
 public:
     DiscoveryView (ElementLibrary& library, RecipeBook& recipeBook,
@@ -29,6 +34,13 @@ public:
     void tileReleased (ElementTile* tile) override;
     void onNewDiscovery (const ElementID& id) override;
 
+    // CombineBar::Listener
+    void combineRequested() override;
+    void slotCleared (bool isSound) override;
+
+    // ElementEditor::Listener
+    void editorClosed (bool trimApplied) override;
+
     void rebuild();
 
 private:
@@ -37,18 +49,19 @@ private:
     DiscoveryLog& discoveryLog;
     AudioEngine& audioEngine;
 
-    // Panel 1 (left) - Sounds
+    // Panels (split-screen layout)
     SoundPanel soundPanel;
-
-    // Panel 2 (right) - Visuals
     VisualPanel visualPanel;
-
-    // Combine button bar
-    juce::TextButton combineButton { "COMBINE" };
-
-    // Panel 3 (bottom 16:9) - Combined AV library + preview
     DiscoveryPanel discoveryPanel;
+
+    // Floating visual canvas (corner preview)
     VisualCanvas visualCanvas;
+
+    // Combine bar (center divider)
+    CombineBar combineBar;
+
+    // Trim editor overlay
+    ElementEditor elementEditor;
 
     DiscoveryAnimation discoveryAnimation;
 
@@ -57,7 +70,7 @@ private:
     ElementTile* selectedVisual = nullptr;
 
     bool tryCombine (const ElementID& a, const ElementID& b);
-    void updateCombineButton();
+    void updateCombineBar();
     void previewSoundTile (ElementTile* tile);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DiscoveryView)

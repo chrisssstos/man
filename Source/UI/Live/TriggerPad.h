@@ -2,6 +2,7 @@
 #include <JuceHeader.h>
 #include "Model/Element.h"
 #include "Visuals/VisualRenderer.h"
+#include "UI/Common/TouchConstants.h"
 
 class TriggerPad : public juce::Component, public juce::Timer
 {

@@ -13,28 +13,29 @@ void ClipComponent::paint (juce::Graphics& g)
     // Filled rounded rectangle
     auto fillColour = colour.withAlpha (hovering ? 0.75f : 0.65f);
     g.setColour (fillColour);
-    g.fillRoundedRectangle (bounds, 6.0f);
+    g.fillRoundedRectangle (bounds, TouchUI::kCornerRadius);
 
     // Top highlight for depth
     auto topSlice = bounds.removeFromTop (bounds.getHeight() * 0.35f);
     g.setColour (colour.brighter (0.3f).withAlpha (0.25f));
-    g.fillRoundedRectangle (topSlice.withBottom (topSlice.getBottom() + 6.0f), 6.0f);
+    g.fillRoundedRectangle (topSlice.withBottom (topSlice.getBottom() + TouchUI::kCornerRadius), TouchUI::kCornerRadius);
 
     // Border
     bounds = getLocalBounds().toFloat().reduced (1.0f);
     g.setColour (colour.brighter (0.5f));
-    g.drawRoundedRectangle (bounds, 6.0f, 1.5f);
+    g.drawRoundedRectangle (bounds, TouchUI::kCornerRadius, 1.5f);
 
-    // Resize handle indicator — vertical lines on right edge
-    if (bounds.getWidth() > 20.0f)
+    // Resize handle indicator (3 vertical lines in 20px zone)
+    if (bounds.getWidth() > 30.0f)
     {
         float handleX = bounds.getRight() - (float) kResizeHandleWidth;
         g.setColour (juce::Colours::white.withAlpha (0.3f));
-        g.drawVerticalLine ((int) (handleX + 2.0f), bounds.getY() + 4.0f, bounds.getBottom() - 4.0f);
-        g.drawVerticalLine ((int) (handleX + 5.0f), bounds.getY() + 4.0f, bounds.getBottom() - 4.0f);
+        g.drawVerticalLine ((int) (handleX + 4.0f), bounds.getY() + 4.0f, bounds.getBottom() - 4.0f);
+        g.drawVerticalLine ((int) (handleX + 8.0f), bounds.getY() + 4.0f, bounds.getBottom() - 4.0f);
+        g.drawVerticalLine ((int) (handleX + 12.0f), bounds.getY() + 4.0f, bounds.getBottom() - 4.0f);
     }
 
-    // Waveform preview behind text
+    // Waveform preview
     if (! waveformPath.isEmpty() && bounds.getWidth() > 10.0f)
     {
         g.setColour (colour.brighter (0.4f).withAlpha (0.3f));
@@ -51,11 +52,11 @@ void ClipComponent::paint (juce::Graphics& g)
         }
     }
 
-    // Clip name text
+    // Clip name text (14px)
     if (bounds.getWidth() > 24.0f)
     {
         g.setColour (juce::Colours::white);
-        g.setFont (juce::FontOptions (11.0f));
+        g.setFont (juce::FontOptions (TouchUI::kFontSmall));
         g.drawText (name, bounds.reduced (5.0f, 0.0f),
                     juce::Justification::centredLeft, true);
     }
@@ -69,6 +70,8 @@ void ClipComponent::mouseDown (const juce::MouseEvent& e)
         return;
     }
 
+    longPressTriggered = false;
+
     if (isInResizeZone (e.getPosition()))
     {
         resizing = true;
@@ -77,18 +80,24 @@ void ClipComponent::mouseDown (const juce::MouseEvent& e)
     else
     {
         dragging = true;
-        // Record offset from the clip's left edge in beats
         dragOffsetBeats = (double) e.x / pixelsPerBeat;
         dragStartBeat = startBeat;
         dragAccumulatedY = 0;
+        visualTrackOffset = 0;
+
+        // Long-press timer for touch delete
+        startTimer (kLongPressMs);
     }
 }
 
 void ClipComponent::mouseDrag (const juce::MouseEvent& e)
 {
+    // Cancel long-press if user moves
+    if (e.getDistanceFromDragStart() > 10)
+        stopTimer();
+
     if (resizing)
     {
-        // e.getDistanceFromDragStartX() gives pixels moved since mouseDown
         double deltaPx = (double) e.getDistanceFromDragStartX();
         double deltaBeats = deltaPx / pixelsPerBeat;
         double newDuration = snapBeat (dragStartDuration + deltaBeats);
@@ -102,7 +111,6 @@ void ClipComponent::mouseDrag (const juce::MouseEvent& e)
     }
     else if (dragging)
     {
-        // Horizontal movement — position relative to parent (the TrackLane)
         auto posInParent = e.getEventRelativeTo (getParentComponent()).position;
         double beatAtCursor = (posInParent.x - (float) headerWidth) / pixelsPerBeat;
         double newStart = snapBeat (beatAtCursor - dragOffsetBeats);
@@ -114,21 +122,42 @@ void ClipComponent::mouseDrag (const juce::MouseEvent& e)
             listeners.call ([this, newStart] (Listener& l) { l.clipMoved (clipIndex, newStart); });
         }
 
-        // Vertical movement — detect crossing into adjacent track
         int yFromStart = (int) (e.position.y - e.mouseDownPosition.y);
         int trackDelta = (yFromStart - dragAccumulatedY) / rowHeight;
         if (trackDelta != 0)
         {
             dragAccumulatedY += trackDelta * rowHeight;
+            visualTrackOffset += trackDelta;
             listeners.call ([this, trackDelta] (Listener& l) { l.clipTrackChanged (clipIndex, trackDelta); });
+        }
+
+        if (visualTrackOffset != 0)
+        {
+            auto b = getBounds();
+            int targetY = 2 + visualTrackOffset * rowHeight;
+            if (b.getY() != targetY)
+                setBounds (b.getX(), targetY, b.getWidth(), b.getHeight());
         }
     }
 }
 
 void ClipComponent::mouseUp (const juce::MouseEvent&)
 {
+    stopTimer();
+    bool wasDragging = dragging;
     dragging = false;
     resizing = false;
+
+    if (wasDragging && ! longPressTriggered)
+        listeners.call ([this] (Listener& l) { l.clipDragEnded (clipIndex); });
+}
+
+void ClipComponent::timerCallback()
+{
+    stopTimer();
+    longPressTriggered = true;
+    dragging = false;
+    listeners.call ([this] (Listener& l) { l.clipDeleted (clipIndex); });
 }
 
 void ClipComponent::mouseMove (const juce::MouseEvent& e)
@@ -192,7 +221,6 @@ void ClipComponent::setWaveform (const juce::AudioBuffer<float>* buffer, int num
         waveformPath.lineTo (x, midY - maxVal * midY);
     }
 
-    // Mirror back for filled shape
     for (int i = numPoints - 1; i >= 0; --i)
     {
         int start = i * samplesPerPoint;

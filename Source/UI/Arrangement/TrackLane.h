@@ -4,14 +4,15 @@
 #include "Model/Sketch.h"
 #include "Model/ElementLibrary.h"
 #include "Audio/SampleManager.h"
+#include "UI/Common/TouchConstants.h"
 
 class TrackLane : public juce::Component,
                   public juce::DragAndDropTarget,
                   public ClipComponent::Listener
 {
 public:
-    static constexpr int kHeaderWidth = 50;
-    static constexpr int kRowHeight   = 40;
+    static constexpr int kHeaderWidth = TouchUI::kTrackHeaderWidth;
+    static constexpr int kRowHeight   = TouchUI::kTrackRowHeight;
 
     TrackLane (int trackIndex, Sketch& sketch, ElementLibrary& library,
               SampleManager& sampleManager);
@@ -43,6 +44,7 @@ public:
     void clipResized (int clipIndex, double newDuration) override;
     void clipDeleted (int clipIndex) override;
     void clipTrackChanged (int clipIndex, int deltaTrack) override;
+    void clipDragEnded (int clipIndex) override;
 
     struct Listener
     {
@@ -52,6 +54,7 @@ public:
         virtual void trackClipMoved (int clipIndex, double newBeat) = 0;
         virtual void trackClipResized (int clipIndex, double newDuration) = 0;
         virtual void trackClipTrackChanged (int clipIndex, int deltaTrack) = 0;
+        virtual void trackClipDragEnded (int clipIndex) = 0;
     };
 
     void addListener (Listener* l)    { listeners.add (l); }

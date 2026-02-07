@@ -7,6 +7,7 @@
 #include "Model/ElementLibrary.h"
 #include "Audio/AudioEngine.h"
 #include "ElementPalette.h"
+#include "UI/Common/TouchConstants.h"
 
 class ArrangementView : public juce::Component,
                         public juce::Timer,
@@ -44,11 +45,8 @@ private:
     VisualCanvas visualCanvas;
     ElementPalette elementPalette;
 
-    juce::TextButton paletteToggle;
-    bool paletteVisible = true;
     bool wasPlaying = false;
     double playheadBeat = 0.0;
-    static constexpr int kPaletteWidth = 140;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ArrangementView)
 };

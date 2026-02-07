@@ -43,17 +43,28 @@ void TriggerGrid::rebuild()
 
 void TriggerGrid::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colour (0xff0a0a1e));
+    g.fillAll (juce::Colour (TouchUI::kBgDeep));
 }
 
 void TriggerGrid::resized()
 {
-    int cols = 5;
-    int rows = 3;
-    int gap = 6;
+    int gap = TouchUI::kTileGap;
     auto area = getLocalBounds().reduced (gap);
-    int padW = (area.getWidth() - (cols - 1) * gap) / cols;
-    int padH = (area.getHeight() - (rows - 1) * gap) / rows;
+
+    int minPadSize = TouchUI::kLargeTouchTarget; // 80px min
+    int availW = area.getWidth();
+
+    // Responsive columns: ensure pads never shrink below 80px
+    int cols = juce::jmax (1, (availW + gap) / (minPadSize + gap));
+    cols = juce::jmin (cols, 5); // Max 5 columns
+
+    int rows = ((int) pads.size() + cols - 1) / cols;
+    int padW = (availW - (cols - 1) * gap) / cols;
+    int padH = rows > 0 ? (area.getHeight() - (rows - 1) * gap) / rows : 0;
+
+    // Enforce minimum size
+    padW = juce::jmax (minPadSize, padW);
+    padH = juce::jmax (minPadSize, padH);
 
     for (int i = 0; i < pads.size(); ++i)
     {

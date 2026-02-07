@@ -4,7 +4,7 @@ ElementPalette::ElementPalette (ElementLibrary& lib)
     : library (lib)
 {
     viewport.setViewedComponent (&tileContainer, false);
-    viewport.setScrollBarsShown (true, false);
+    viewport.setScrollBarsShown (false, true);
     addAndMakeVisible (viewport);
     rebuild();
 }
@@ -25,29 +25,78 @@ void ElementPalette::rebuild()
 
 void ElementPalette::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colour (0xff0f0f28));
+    auto bounds = getLocalBounds();
+
+    // Handle bar
+    auto handleArea = bounds.removeFromTop (kHandleHeight);
+    g.setColour (juce::Colour (TouchUI::kBgCard));
+    g.fillRect (handleArea);
+
+    // Top border accent
+    g.setColour (juce::Colour (TouchUI::kAccentPink).withAlpha (0.4f));
+    g.fillRect (handleArea.getX(), handleArea.getY(), handleArea.getWidth(), 2);
+
+    // Handle label
     g.setColour (juce::Colours::white.withAlpha (0.7f));
-    g.setFont (12.0f);
-    g.drawText ("Elements", getLocalBounds().removeFromTop (20), juce::Justification::centred);
+    g.setFont (juce::FontOptions (TouchUI::kFontSmall));
+    juce::String label = expanded ? "Elements \u25BC" : "Elements \u25B2";
+    g.drawText (label, handleArea, juce::Justification::centred);
+
+    // Content area background
+    if (expanded)
+    {
+        g.setColour (juce::Colour (TouchUI::kBgPanel));
+        g.fillRect (bounds);
+    }
 }
 
 void ElementPalette::resized()
 {
-    auto area = getLocalBounds().withTrimmedTop (22);
+    auto area = getLocalBounds().withTrimmedTop (kHandleHeight);
+
+    if (! expanded)
+    {
+        viewport.setVisible (false);
+        return;
+    }
+
+    viewport.setVisible (true);
     viewport.setBounds (area);
 
-    int tileSize = 80;
-    int gap = 4;
-    int cols = juce::jmax (1, (area.getWidth() - gap) / (tileSize + gap));
-    int rows = ((int) tiles.size() + cols - 1) / cols;
-    tileContainer.setSize (area.getWidth(), rows * (tileSize + gap) + gap);
+    int tileSize = TouchUI::kTileSize;
+    int gap = TouchUI::kTileGap;
+
+    // Horizontal scrolling row
+    int containerWidth = (int) tiles.size() * (tileSize + gap) + gap;
+    tileContainer.setSize (juce::jmax (containerWidth, area.getWidth()), area.getHeight());
 
     for (int i = 0; i < tiles.size(); ++i)
     {
-        int col = i % cols;
-        int row = i / cols;
-        tiles[i]->setBounds (gap + col * (tileSize + gap),
-                             gap + row * (tileSize + gap),
+        tiles[i]->setBounds (gap + i * (tileSize + gap),
+                             gap,
                              tileSize, tileSize);
+    }
+}
+
+void ElementPalette::mouseDown (const juce::MouseEvent& e)
+{
+    auto handleArea = getLocalBounds().removeFromTop (kHandleHeight);
+    if (handleArea.contains (e.getPosition()))
+    {
+        setDrawerExpanded (! expanded);
+    }
+}
+
+void ElementPalette::setDrawerExpanded (bool expand)
+{
+    if (expanded != expand)
+    {
+        expanded = expand;
+        resized();
+        repaint();
+
+        // Notify parent to relayout
+        if (auto* parent = getParentComponent())
+            parent->resized();
     }
 }

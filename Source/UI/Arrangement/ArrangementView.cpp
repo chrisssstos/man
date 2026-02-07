@@ -10,18 +10,6 @@ ArrangementView::ArrangementView (Sketch& sk, ElementLibrary& lib, AudioEngine& 
     addAndMakeVisible (visualCanvas);
     addAndMakeVisible (elementPalette);
 
-    paletteToggle.setButtonText ("<");
-    paletteToggle.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff1a1a3a));
-    paletteToggle.setColour (juce::TextButton::textColourOffId, juce::Colours::white.withAlpha (0.7f));
-    paletteToggle.onClick = [this]
-    {
-        paletteVisible = ! paletteVisible;
-        paletteToggle.setButtonText (paletteVisible ? "<" : ">");
-        elementPalette.setVisible (paletteVisible);
-        resized();
-    };
-    addAndMakeVisible (paletteToggle);
-
     transportBar.addListener (this);
     timeline.addListener (this);
 
@@ -38,29 +26,27 @@ ArrangementView::~ArrangementView()
 
 void ArrangementView::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colour (0xff0a0a1e));
+    g.fillAll (juce::Colour (TouchUI::kBgDeep));
 }
 
 void ArrangementView::resized()
 {
     auto area = getLocalBounds();
-    transportBar.setBounds (area.removeFromTop (40));
 
-    auto canvasH = juce::jmax (120, area.getHeight() * 20 / 100);
+    // Transport bar: 64px top
+    transportBar.setBounds (area.removeFromTop (TouchUI::kTransportHeight));
+
+    // Visual canvas: 15% of remaining, min 120px
+    auto canvasH = juce::jmax (120, area.getHeight() * 15 / 100);
     visualCanvas.setBounds (area.removeFromBottom (canvasH));
 
-    int toggleW = 16;
+    // Element palette drawer at bottom (above canvas)
+    int paletteH = elementPalette.isDrawerExpanded()
+                     ? elementPalette.getExpandedHeight()
+                     : elementPalette.getCollapsedHeight();
+    elementPalette.setBounds (area.removeFromBottom (paletteH));
 
-    if (paletteVisible)
-    {
-        elementPalette.setBounds (area.removeFromLeft (kPaletteWidth));
-        paletteToggle.setBounds (area.removeFromLeft (toggleW));
-    }
-    else
-    {
-        paletteToggle.setBounds (area.removeFromLeft (toggleW));
-    }
-
+    // Timeline fills the rest
     timeline.setBounds (area);
 }
 
@@ -76,11 +62,9 @@ void ArrangementView::timerCallback()
     }
     else
     {
-        // Detect auto-stop from audio engine (reached end of arrangement)
         if (wasPlaying)
             transportBar.setPlaying (false);
 
-        // Keep showing playhead at last known position
         timeline.setPlayheadBeat (playheadBeat);
     }
 

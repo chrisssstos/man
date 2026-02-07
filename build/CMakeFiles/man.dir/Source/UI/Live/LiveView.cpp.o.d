@@ -1598,6 +1598,7 @@ CMakeFiles/man.dir/Source/UI/Live/LiveView.cpp.o: \
   /Users/christos/Documents/Gits/man/Source/UI/Live/TriggerPad.h \
   /Users/christos/Documents/Gits/man/Source/Model/Element.h \
   /Users/christos/Documents/Gits/man/Source/Visuals/VisualRenderer.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Common/TouchConstants.h \
   /Users/christos/Documents/Gits/man/Source/Model/ElementLibrary.h \
   /Users/christos/Documents/Gits/man/Source/Visuals/VisualCanvas.h \
   /Users/christos/Documents/Gits/man/Source/Model/Sketch.h \

@@ -1596,4 +1596,5 @@ CMakeFiles/man.dir/Source/UI/Discovery/ElementTile.cpp.o: \
   /Users/christos/Documents/Gits/man/build/juce_binarydata_ManResources/JuceLibraryCode/BinaryData.h \
   /Users/christos/Documents/Gits/man/Source/Model/Element.h \
   /Users/christos/Documents/Gits/man/Source/Visuals/VisualRenderer.h \
-  /Users/christos/Documents/Gits/man/Source/Audio/SampleManager.h
+  /Users/christos/Documents/Gits/man/Source/Audio/SampleManager.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Common/TouchConstants.h

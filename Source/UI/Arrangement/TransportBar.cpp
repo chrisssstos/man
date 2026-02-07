@@ -12,10 +12,10 @@ TransportBar::TransportBar()
     addAndMakeVisible (snapCombo);
     addAndMakeVisible (snapLabel);
 
-    playButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff2ecc71));
+    playButton.setColour (juce::TextButton::buttonColourId, juce::Colour (TouchUI::kAccentGreen));
     pauseButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xfff39c12));
     stopButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xffe74c3c));
-    recordButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xffe94560));
+    recordButton.setColour (juce::TextButton::buttonColourId, juce::Colour (TouchUI::kAccentPink));
     exportButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff3498db));
 
     pauseButton.setEnabled (false);
@@ -25,7 +25,7 @@ TransportBar::TransportBar()
     bpmSlider.setValue (120.0);
     bpmSlider.setTextValueSuffix (" BPM");
     bpmSlider.setSliderStyle (juce::Slider::LinearHorizontal);
-    bpmSlider.setTextBoxStyle (juce::Slider::TextBoxLeft, false, 80, 24);
+    bpmSlider.setTextBoxStyle (juce::Slider::TextBoxLeft, false, 80, 40);
     bpmSlider.onValueChange = [this]
     {
         currentBPM = bpmSlider.getValue();
@@ -34,10 +34,11 @@ TransportBar::TransportBar()
 
     beatLabel.setText ("Beat: 0.0 | 0:00.0", juce::dontSendNotification);
     beatLabel.setColour (juce::Label::textColourId, juce::Colours::white);
+    beatLabel.setFont (juce::FontOptions (TouchUI::kFontSmall));
 
     snapLabel.setText ("Snap:", juce::dontSendNotification);
     snapLabel.setColour (juce::Label::textColourId, juce::Colours::white.withAlpha (0.7f));
-    snapLabel.setFont (juce::FontOptions (12.0f));
+    snapLabel.setFont (juce::FontOptions (TouchUI::kFontSmall));
 
     snapCombo.addItem ("Off", 1);
     snapCombo.addItem ("1 Bar", 2);
@@ -69,27 +70,31 @@ TransportBar::TransportBar()
 
 void TransportBar::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colour (0xff16213e));
+    g.fillAll (juce::Colour (TouchUI::kBgDeep).brighter (0.05f));
 }
 
 void TransportBar::resized()
 {
     auto area = getLocalBounds().reduced (4);
-    playButton.setBounds (area.removeFromLeft (50));
-    area.removeFromLeft (3);
-    pauseButton.setBounds (area.removeFromLeft (50));
-    area.removeFromLeft (3);
-    stopButton.setBounds (area.removeFromLeft (50));
-    area.removeFromLeft (3);
-    recordButton.setBounds (area.removeFromLeft (60));
-    area.removeFromLeft (8);
-    bpmSlider.setBounds (area.removeFromLeft (200));
-    area.removeFromLeft (8);
-    beatLabel.setBounds (area.removeFromLeft (150));
-    area.removeFromLeft (8);
-    snapLabel.setBounds (area.removeFromLeft (36));
-    snapCombo.setBounds (area.removeFromLeft (90));
-    exportButton.setBounds (area.removeFromRight (60));
+    int btnW = TouchUI::kTransportButtonW;
+    int btnH = TouchUI::kMinTouchTarget;
+    int gap = TouchUI::kMinGap;
+
+    playButton.setBounds (area.removeFromLeft (btnW).withSizeKeepingCentre (btnW, btnH));
+    area.removeFromLeft (gap);
+    pauseButton.setBounds (area.removeFromLeft (btnW).withSizeKeepingCentre (btnW, btnH));
+    area.removeFromLeft (gap);
+    stopButton.setBounds (area.removeFromLeft (btnW).withSizeKeepingCentre (btnW, btnH));
+    area.removeFromLeft (gap);
+    recordButton.setBounds (area.removeFromLeft (btnW).withSizeKeepingCentre (btnW, btnH));
+    area.removeFromLeft (TouchUI::kLargeGap);
+    bpmSlider.setBounds (area.removeFromLeft (200).withSizeKeepingCentre (200, btnH));
+    area.removeFromLeft (TouchUI::kLargeGap);
+    beatLabel.setBounds (area.removeFromLeft (150).withSizeKeepingCentre (150, btnH));
+    area.removeFromLeft (gap);
+    snapLabel.setBounds (area.removeFromLeft (40).withSizeKeepingCentre (40, btnH));
+    snapCombo.setBounds (area.removeFromLeft (90).withSizeKeepingCentre (90, btnH));
+    exportButton.setBounds (area.removeFromRight (btnW).withSizeKeepingCentre (btnW, btnH));
 }
 
 void TransportBar::setPlaying (bool playing)

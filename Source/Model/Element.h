@@ -43,10 +43,21 @@ public:
     juce::Colour getBaseColour() const                { return baseColour; }
     const juce::StringPairArray& getParams() const    { return params; }
 
+    float getTrimStart() const { return trimStart; }
+    float getTrimEnd() const   { return trimEnd; }
+    void setTrimRange (float start, float end)
+    {
+        trimStart = juce::jlimit (0.0f, 1.0f, start);
+        trimEnd   = juce::jlimit (0.0f, 1.0f, end);
+        if (trimEnd <= trimStart) trimEnd = trimStart + 0.001f;
+    }
+
 private:
     VisualKind visualKind;
     juce::Colour baseColour;
     juce::StringPairArray params;
+    float trimStart = 0.0f;
+    float trimEnd   = 1.0f;
 };
 
 class SoundElement : public Element
@@ -56,8 +67,19 @@ public:
 
     const juce::String& getSamplePath() const { return samplePath; }
 
+    float getTrimStart() const { return trimStart; }
+    float getTrimEnd() const   { return trimEnd; }
+    void setTrimRange (float start, float end)
+    {
+        trimStart = juce::jlimit (0.0f, 1.0f, start);
+        trimEnd   = juce::jlimit (0.0f, 1.0f, end);
+        if (trimEnd <= trimStart) trimEnd = trimStart + 0.001f;
+    }
+
 private:
     juce::String samplePath;
+    float trimStart = 0.0f;
+    float trimEnd   = 1.0f;
 };
 
 class AudioVisualElement : public Element

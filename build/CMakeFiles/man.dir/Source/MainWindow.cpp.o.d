@@ -1607,12 +1607,20 @@ CMakeFiles/man.dir/Source/MainWindow.cpp.o: \
   /Users/christos/Documents/Gits/man/Source/Audio/SampleSound.h \
   /Users/christos/Documents/Gits/man/Source/Audio/SampleVoice.h \
   /Users/christos/Documents/Gits/man/Source/UI/Common/ModeSelector.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Common/TouchConstants.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Common/SwipeContainer.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Common/PageIndicator.h \
   /Users/christos/Documents/Gits/man/Source/UI/Discovery/DiscoveryView.h \
   /Users/christos/Documents/Gits/man/Source/UI/Discovery/VisualPanel.h \
   /Users/christos/Documents/Gits/man/Source/UI/Discovery/ElementTile.h \
   /Users/christos/Documents/Gits/man/Source/Visuals/VisualRenderer.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Browser/YouTubeBrowserPanel.h \
+  /Users/christos/Documents/Gits/man/Source/Network/YouTubeDownloader.h \
   /Users/christos/Documents/Gits/man/Source/UI/Discovery/SoundPanel.h \
   /Users/christos/Documents/Gits/man/Source/UI/Discovery/DiscoveryPanel.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Discovery/CombineBar.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Discovery/ElementEditor.h \
+  /Users/christos/Documents/Gits/man/Source/Visuals/VideoDecoder.h \
   /Users/christos/Documents/Gits/man/Source/UI/Discovery/DiscoveryAnimation.h \
   /Users/christos/Documents/Gits/man/Source/Visuals/VisualCanvas.h \
   /Users/christos/Documents/Gits/man/Source/UI/Arrangement/ArrangementView.h \

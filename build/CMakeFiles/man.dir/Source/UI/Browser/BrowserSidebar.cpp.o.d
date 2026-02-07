@@ -1606,4 +1606,6 @@ CMakeFiles/man.dir/Source/UI/Browser/BrowserSidebar.cpp.o: \
   /Users/christos/Documents/Gits/man/Source/UI/Browser/VisualBrowserPanel.h \
   /Users/christos/Documents/Gits/man/Source/UI/Browser/VisualParamEditor.h \
   /Users/christos/Documents/Gits/man/Source/UI/Common/VisualPreview.h \
-  /Users/christos/Documents/Gits/man/Source/Visuals/VisualRenderer.h
+  /Users/christos/Documents/Gits/man/Source/Visuals/VisualRenderer.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Browser/YouTubeBrowserPanel.h \
+  /Users/christos/Documents/Gits/man/Source/Network/YouTubeDownloader.h

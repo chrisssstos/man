@@ -1599,7 +1599,10 @@ CMakeFiles/man.dir/Source/UI/Discovery/DiscoveryView.cpp.o: \
   /Users/christos/Documents/Gits/man/Source/Model/Element.h \
   /Users/christos/Documents/Gits/man/Source/Visuals/VisualRenderer.h \
   /Users/christos/Documents/Gits/man/Source/Audio/SampleManager.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Common/TouchConstants.h \
   /Users/christos/Documents/Gits/man/Source/Model/ElementLibrary.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Browser/YouTubeBrowserPanel.h \
+  /Users/christos/Documents/Gits/man/Source/Network/YouTubeDownloader.h \
   /Users/christos/Documents/Gits/man/Source/UI/Discovery/SoundPanel.h \
   /Users/christos/Documents/Gits/man/Source/Audio/AudioEngine.h \
   /Users/christos/Documents/Gits/man/Source/Audio/SampleSound.h \
@@ -1607,6 +1610,9 @@ CMakeFiles/man.dir/Source/UI/Discovery/DiscoveryView.cpp.o: \
   /Users/christos/Documents/Gits/man/Source/Model/Sketch.h \
   /Users/christos/Documents/Gits/man/Source/Model/Clip.h \
   /Users/christos/Documents/Gits/man/Source/UI/Discovery/DiscoveryPanel.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Discovery/CombineBar.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Discovery/ElementEditor.h \
+  /Users/christos/Documents/Gits/man/Source/Visuals/VideoDecoder.h \
   /Users/christos/Documents/Gits/man/Source/UI/Discovery/DiscoveryAnimation.h \
   /Users/christos/Documents/Gits/man/Source/Model/RecipeBook.h \
   /Users/christos/Documents/Gits/man/Source/Model/Recipe.h \

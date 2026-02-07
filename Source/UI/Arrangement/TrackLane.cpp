@@ -3,6 +3,7 @@
 TrackLane::TrackLane (int idx, Sketch& sk, ElementLibrary& lib, SampleManager& sm)
     : trackIndex (idx), sketch (sk), elementLibrary (lib), sampleManager (sm)
 {
+    setPaintingIsUnclipped (true);
 }
 
 void TrackLane::paint (juce::Graphics& g)
@@ -12,17 +13,17 @@ void TrackLane::paint (juce::Graphics& g)
 
     // Header background
     auto header = area.removeFromLeft (kHeaderWidth);
-    g.setColour (juce::Colour (0xff1a1a3a));
+    g.setColour (juce::Colour (TouchUI::kBgCard));
     g.fillRect (header);
 
     // Track number
     g.setColour (juce::Colours::white.withAlpha (0.5f));
-    g.setFont (juce::FontOptions (11.0f));
+    g.setFont (juce::FontOptions (TouchUI::kFontNormal));
     g.drawText (juce::String (trackIndex + 1), header.reduced (4, 0),
                 juce::Justification::centred, true);
 
     // Grid area background
-    g.setColour (dragHovering ? juce::Colour (0xff141438) : juce::Colour (0xff0e0e24));
+    g.setColour (dragHovering ? juce::Colour (0xff141438) : juce::Colour (TouchUI::kBgPanel));
     g.fillRect (area);
 
     // Beat grid lines
@@ -76,7 +77,6 @@ void TrackLane::resized()
 void TrackLane::mouseDown (const juce::MouseEvent& e)
 {
     juce::ignoreUnused (e);
-    // No click-to-add on generic lanes — only drag & drop from palette
 }
 
 // --- DragAndDropTarget ---
@@ -135,7 +135,6 @@ void TrackLane::rebuildClips()
         if (clip.track != trackIndex)
             continue;
 
-        // Look up element info for name, colour, sample
         juce::String clipName = clip.elementId.id;
         juce::Colour clipColour (0xff888888);
         juce::String samplePath;
@@ -160,7 +159,6 @@ void TrackLane::rebuildClips()
         comp->addListener (this);
         addAndMakeVisible (comp);
 
-        // Load waveform preview if sample exists
         if (samplePath.isNotEmpty())
         {
             if (auto* loaded = sampleManager.loadSample (samplePath))
@@ -218,12 +216,18 @@ void TrackLane::clipTrackChanged (int clipIndex, int deltaTrack)
     listeners.call ([clipIndex, deltaTrack] (Listener& l) { l.trackClipTrackChanged (clipIndex, deltaTrack); });
 }
 
+void TrackLane::clipDragEnded (int clipIndex)
+{
+    listeners.call ([clipIndex] (Listener& l) { l.trackClipDragEnded (clipIndex); });
+}
+
 void TrackLane::layoutClips()
 {
     for (auto* comp : clipComponents)
     {
         int x = kHeaderWidth + (int) (comp->getStartBeat() * pixelsPerBeat);
         int w = juce::jmax (4, (int) (comp->getDurationBeats() * pixelsPerBeat));
-        comp->setBounds (x, 2, w, getHeight() - 4);
+        int y = 2 + comp->getVisualTrackOffset() * kRowHeight;
+        comp->setBounds (x, y, w, getHeight() - 4);
     }
 }

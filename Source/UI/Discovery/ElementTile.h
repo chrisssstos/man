@@ -3,6 +3,7 @@
 #include "Model/Element.h"
 #include "Visuals/VisualRenderer.h"
 #include "Audio/SampleManager.h"
+#include "UI/Common/TouchConstants.h"
 
 class ElementTile : public juce::Component, public juce::Timer
 {

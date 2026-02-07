@@ -1,5 +1,6 @@
 #include "MainComponent.h"
 #include "BinaryData.h"
+#include "UI/Common/TouchConstants.h"
 
 MainComponent::MainComponent()
     : audioEngine (elementLibrary, sampleManager),
@@ -23,12 +24,14 @@ MainComponent::MainComponent()
     liveView = std::make_unique<LiveView> (elementLibrary, audioEngine, sketch);
 
     addAndMakeVisible (modeSelector);
-    addChildComponent (*discoveryView);
-    addChildComponent (*arrangementView);
-    addChildComponent (*liveView);
+    addAndMakeVisible (swipeContainer);
+
+    swipeContainer.addPage (discoveryView.get());
+    swipeContainer.addPage (arrangementView.get());
+    swipeContainer.addPage (liveView.get());
 
     modeSelector.addListener (this);
-    showCurrentMode();
+    swipeContainer.addListener (this);
 
     setSize (1280, 800);
 }
@@ -39,36 +42,37 @@ MainComponent::~MainComponent()
 
 void MainComponent::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colour (0xff0a0a1e));
+    g.fillAll (juce::Colour (TouchUI::kBgDeep));
 }
 
 void MainComponent::resized()
 {
     auto area = getLocalBounds();
-    modeSelector.setBounds (area.removeFromTop (36));
-
-    discoveryView->setBounds (area);
-    arrangementView->setBounds (area);
-    liveView->setBounds (area);
+    modeSelector.setBounds (area.removeFromTop (TouchUI::kModeBarHeight));
+    swipeContainer.setBounds (area);
 }
 
 void MainComponent::modeChanged (ModeSelector::Mode newMode)
 {
-    currentMode = newMode;
+    int pageIndex = (int) newMode;
 
     if (newMode == ModeSelector::Mode::Arrangement)
         arrangementView->rebuild();
     else if (newMode == ModeSelector::Mode::Live)
         liveView->rebuild();
 
-    showCurrentMode();
+    swipeContainer.setCurrentPage (pageIndex);
 }
 
-void MainComponent::showCurrentMode()
+void MainComponent::swipePageChanged (int newPage)
 {
-    discoveryView->setVisible (currentMode == ModeSelector::Mode::Discovery);
-    arrangementView->setVisible (currentMode == ModeSelector::Mode::Arrangement);
-    liveView->setVisible (currentMode == ModeSelector::Mode::Live);
+    auto mode = static_cast<ModeSelector::Mode> (newPage);
+    modeSelector.setModeExternal (mode);
+
+    if (mode == ModeSelector::Mode::Arrangement)
+        arrangementView->rebuild();
+    else if (mode == ModeSelector::Mode::Live)
+        liveView->rebuild();
 }
 
 void MainComponent::initializeBaseElements()

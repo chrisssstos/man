@@ -61,22 +61,8 @@ void SoundPanel::clearSelection()
 
 void SoundPanel::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colour (hovering ? 0xff1a1a3a : 0xff0e0e24));
+    g.fillAll (juce::Colour (hovering ? TouchUI::kBgCard : TouchUI::kBgPanel));
 
-    // Title bar — smoother rounded feel
-    auto titleArea = getLocalBounds().removeFromTop (kTitleBarH);
-    g.setColour (juce::Colour (0xff2a1a1a));
-    g.fillRect (titleArea);
-
-    // Accent line at bottom of title
-    g.setColour (juce::Colour (0xffcc4444));
-    g.fillRect (titleArea.getX(), titleArea.getBottom() - 2, titleArea.getWidth(), 2);
-
-    g.setColour (juce::Colours::white.withAlpha (0.9f));
-    g.setFont (juce::FontOptions (14.0f));
-    g.drawText ("SOUNDS", titleArea.withTrimmedRight (kTitleBarH + 4), juce::Justification::centred);
-
-    // Drop hint — smooth glow border
     if (hovering)
     {
         g.setColour (juce::Colour (0xffcc4444).withAlpha (0.4f));
@@ -87,24 +73,29 @@ void SoundPanel::paint (juce::Graphics& g)
 void SoundPanel::resized()
 {
     auto area = getLocalBounds();
-    auto titleBar = area.removeFromTop (kTitleBarH);
-    importButton.setBounds (titleBar.removeFromRight (kTitleBarH).reduced (3));
 
-    area.removeFromTop (2);
+    // Floating import button in bottom-right corner
+    importButton.setBounds (area.getRight() - TouchUI::kMinTouchTarget - 8,
+                            area.getBottom() - TouchUI::kMinTouchTarget - 8,
+                            TouchUI::kMinTouchTarget, TouchUI::kMinTouchTarget);
+    importButton.toFront (false);
+
     viewport.setBounds (area);
 
-    int cols = juce::jmax (1, (area.getWidth() - kGap) / (kTileSize + kGap));
+    int tileSize = TouchUI::kTileSize;
+    int gap = TouchUI::kTileGap;
+    int cols = juce::jmax (1, (area.getWidth() - gap) / (tileSize + gap));
     int rows = ((int) tiles.size() + cols - 1) / cols;
-    int containerHeight = rows * (kTileSize + kGap) + kGap;
+    int containerHeight = rows * (tileSize + gap) + gap;
     tileContainer.setSize (area.getWidth(), containerHeight);
 
     for (int i = 0; i < tiles.size(); ++i)
     {
         int col = i % cols;
         int row = i / cols;
-        tiles[i]->setBounds (kGap + col * (kTileSize + kGap),
-                             kGap + row * (kTileSize + kGap),
-                             kTileSize, kTileSize);
+        tiles[i]->setBounds (gap + col * (tileSize + gap),
+                             gap + row * (tileSize + gap),
+                             tileSize, tileSize);
     }
 }
 

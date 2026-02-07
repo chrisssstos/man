@@ -313,9 +313,23 @@ void AudioEngine::rebuildSounds()
             av->setMidiNote (noteNumber);
             juce::AudioBuffer<float> bufferCopy;
             bufferCopy.makeCopyOf (loaded->buffer);
-            synthesiser.addSound (new SampleSound (
+
+            auto* sound = new SampleSound (
                 av->getId(), std::move (bufferCopy),
-                loaded->sampleRate, noteNumber));
+                loaded->sampleRate, noteNumber);
+
+            // Apply trim from source elements
+            auto* sndElem = dynamic_cast<SoundElement*> (
+                elementLibrary.getElementById (av->getSoundSourceId()));
+            if (sndElem != nullptr)
+            {
+                int totalSamples = sound->getAudioData().getNumSamples();
+                int trimStart = (int) (sndElem->getTrimStart() * totalSamples);
+                int trimEnd   = (int) (sndElem->getTrimEnd()   * totalSamples);
+                sound->setTrimSamples (trimStart, trimEnd);
+            }
+
+            synthesiser.addSound (sound);
             noteNumber++;
         }
     }
@@ -372,6 +386,35 @@ void AudioEngine::previewFile (const juce::File& file)
     auto buffer = std::make_unique<juce::AudioBuffer<float>> (
         (int) reader->numChannels, (int) reader->lengthInSamples);
     reader->read (buffer.get(), 0, (int) reader->lengthInSamples, 0, true, true);
+    double fileSampleRate = reader->sampleRate;
+    delete reader;
+
+    juce::ScopedLock sl (previewLock);
+    previewBuffer = std::move (buffer);
+    previewSampleRate = fileSampleRate;
+    previewPosition = 0;
+    previewPlaying.store (true);
+}
+
+void AudioEngine::previewFileTrimmed (const juce::File& file, float trimStart, float trimEnd)
+{
+    auto* reader = previewFormatManager.createReaderFor (file);
+    if (reader == nullptr)
+        return;
+
+    int totalSamples = (int) reader->lengthInSamples;
+    int startSmp = (int) (trimStart * totalSamples);
+    int endSmp   = (int) (trimEnd   * totalSamples);
+    int numSmp   = endSmp - startSmp;
+    if (numSmp <= 0)
+    {
+        delete reader;
+        return;
+    }
+
+    auto buffer = std::make_unique<juce::AudioBuffer<float>> (
+        (int) reader->numChannels, numSmp);
+    reader->read (buffer.get(), 0, numSmp, startSmp, true, true);
     double fileSampleRate = reader->sampleRate;
     delete reader;
 

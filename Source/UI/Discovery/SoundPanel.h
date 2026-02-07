@@ -3,6 +3,7 @@
 #include "ElementTile.h"
 #include "Model/ElementLibrary.h"
 #include "Audio/AudioEngine.h"
+#include "UI/Common/TouchConstants.h"
 
 class SoundPanel : public juce::Component,
                    public juce::DragAndDropTarget,
@@ -43,10 +44,6 @@ private:
 
     juce::TextButton importButton { "+" };
     std::unique_ptr<juce::FileChooser> fileChooser;
-
-    static constexpr int kTileSize = 90;
-    static constexpr int kGap = 6;
-    static constexpr int kTitleBarH = 28;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoundPanel)
 };

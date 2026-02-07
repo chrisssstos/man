@@ -53,6 +53,10 @@ target_sources(man
         Source/UI/Live/TriggerGrid.cpp
         Source/UI/Common/ModeSelector.cpp
         Source/UI/Common/VisualPreview.cpp
+        Source/UI/Common/SwipeContainer.cpp
+        Source/UI/Common/PageIndicator.cpp
+        Source/UI/Discovery/CombineBar.cpp
+        Source/UI/Discovery/ElementEditor.cpp
         Source/Visuals/ImageVisual.cpp
         Source/Visuals/VideoDecoder.mm
         Source/Visuals/VideoVisual.cpp
@@ -60,6 +64,8 @@ target_sources(man
         Source/UI/Browser/SoundBrowserPanel.cpp
         Source/UI/Browser/VisualBrowserPanel.cpp
         Source/UI/Browser/VisualParamEditor.cpp
+        Source/UI/Browser/YouTubeBrowserPanel.cpp
+        Source/Network/YouTubeDownloader.cpp
         Source/Export/AudioExporter.cpp
         Source/Export/VideoExporter.cpp)
 

@@ -5,6 +5,7 @@
 #include "Model/ElementLibrary.h"
 #include "Model/Sketch.h"
 #include "Audio/AudioEngine.h"
+#include "UI/Common/TouchConstants.h"
 
 class LiveView : public juce::Component,
                  public TriggerGrid::Listener,

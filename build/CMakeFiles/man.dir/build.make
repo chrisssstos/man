@@ -616,10 +616,66 @@ CMakeFiles/man.dir/Source/UI/Common/VisualPreview.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/man.dir/Source/UI/Common/VisualPreview.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/christos/Documents/Gits/man/Source/UI/Common/VisualPreview.cpp -o CMakeFiles/man.dir/Source/UI/Common/VisualPreview.cpp.s
 
+CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.o: CMakeFiles/man.dir/flags.make
+CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.o: /Users/christos/Documents/Gits/man/Source/UI/Common/SwipeContainer.cpp
+CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.o -MF CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.o.d -o CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.o -c /Users/christos/Documents/Gits/man/Source/UI/Common/SwipeContainer.cpp
+
+CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/christos/Documents/Gits/man/Source/UI/Common/SwipeContainer.cpp > CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.i
+
+CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/christos/Documents/Gits/man/Source/UI/Common/SwipeContainer.cpp -o CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.s
+
+CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.o: CMakeFiles/man.dir/flags.make
+CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.o: /Users/christos/Documents/Gits/man/Source/UI/Common/PageIndicator.cpp
+CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.o -MF CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.o.d -o CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.o -c /Users/christos/Documents/Gits/man/Source/UI/Common/PageIndicator.cpp
+
+CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/christos/Documents/Gits/man/Source/UI/Common/PageIndicator.cpp > CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.i
+
+CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/christos/Documents/Gits/man/Source/UI/Common/PageIndicator.cpp -o CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.s
+
+CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.o: CMakeFiles/man.dir/flags.make
+CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.o: /Users/christos/Documents/Gits/man/Source/UI/Discovery/CombineBar.cpp
+CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.o -MF CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.o.d -o CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.o -c /Users/christos/Documents/Gits/man/Source/UI/Discovery/CombineBar.cpp
+
+CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/christos/Documents/Gits/man/Source/UI/Discovery/CombineBar.cpp > CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.i
+
+CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/christos/Documents/Gits/man/Source/UI/Discovery/CombineBar.cpp -o CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.s
+
+CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.o: CMakeFiles/man.dir/flags.make
+CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.o: /Users/christos/Documents/Gits/man/Source/UI/Discovery/ElementEditor.cpp
+CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CXX object CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.o -MF CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.o.d -o CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.o -c /Users/christos/Documents/Gits/man/Source/UI/Discovery/ElementEditor.cpp
+
+CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/christos/Documents/Gits/man/Source/UI/Discovery/ElementEditor.cpp > CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.i
+
+CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/christos/Documents/Gits/man/Source/UI/Discovery/ElementEditor.cpp -o CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.s
+
 CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.o: /Users/christos/Documents/Gits/man/Source/Visuals/ImageVisual.cpp
 CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CXX object CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.o -MF CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.o.d -o CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.o -c /Users/christos/Documents/Gits/man/Source/Visuals/ImageVisual.cpp
 
 CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.i: cmake_force
@@ -633,7 +689,7 @@ CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.s: cmake_force
 CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.o: /Users/christos/Documents/Gits/man/Source/Visuals/VideoDecoder.mm
 CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CXX object CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.o -MF CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.o.d -o CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.o -c /Users/christos/Documents/Gits/man/Source/Visuals/VideoDecoder.mm
 
 CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.i: cmake_force
@@ -647,7 +703,7 @@ CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.s: cmake_force
 CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.o: /Users/christos/Documents/Gits/man/Source/Visuals/VideoVisual.cpp
 CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.o -MF CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.o.d -o CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.o -c /Users/christos/Documents/Gits/man/Source/Visuals/VideoVisual.cpp
 
 CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.i: cmake_force
@@ -661,7 +717,7 @@ CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.s: cmake_force
 CMakeFiles/man.dir/Source/UI/Browser/BrowserSidebar.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/Source/UI/Browser/BrowserSidebar.cpp.o: /Users/christos/Documents/Gits/man/Source/UI/Browser/BrowserSidebar.cpp
 CMakeFiles/man.dir/Source/UI/Browser/BrowserSidebar.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CXX object CMakeFiles/man.dir/Source/UI/Browser/BrowserSidebar.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/man.dir/Source/UI/Browser/BrowserSidebar.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/UI/Browser/BrowserSidebar.cpp.o -MF CMakeFiles/man.dir/Source/UI/Browser/BrowserSidebar.cpp.o.d -o CMakeFiles/man.dir/Source/UI/Browser/BrowserSidebar.cpp.o -c /Users/christos/Documents/Gits/man/Source/UI/Browser/BrowserSidebar.cpp
 
 CMakeFiles/man.dir/Source/UI/Browser/BrowserSidebar.cpp.i: cmake_force
@@ -675,7 +731,7 @@ CMakeFiles/man.dir/Source/UI/Browser/BrowserSidebar.cpp.s: cmake_force
 CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.o: /Users/christos/Documents/Gits/man/Source/UI/Browser/SoundBrowserPanel.cpp
 CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CXX object CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CXX object CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.o -MF CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.o.d -o CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.o -c /Users/christos/Documents/Gits/man/Source/UI/Browser/SoundBrowserPanel.cpp
 
 CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.i: cmake_force
@@ -689,7 +745,7 @@ CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.s: cmake_force
 CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.o: /Users/christos/Documents/Gits/man/Source/UI/Browser/VisualBrowserPanel.cpp
 CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CXX object CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building CXX object CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.o -MF CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.o.d -o CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.o -c /Users/christos/Documents/Gits/man/Source/UI/Browser/VisualBrowserPanel.cpp
 
 CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.i: cmake_force
@@ -703,7 +759,7 @@ CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.s: cmake_force
 CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.o: /Users/christos/Documents/Gits/man/Source/UI/Browser/VisualParamEditor.cpp
 CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.o -MF CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.o.d -o CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.o -c /Users/christos/Documents/Gits/man/Source/UI/Browser/VisualParamEditor.cpp
 
 CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.i: cmake_force
@@ -714,10 +770,38 @@ CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/christos/Documents/Gits/man/Source/UI/Browser/VisualParamEditor.cpp -o CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.s
 
+CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.o: CMakeFiles/man.dir/flags.make
+CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.o: /Users/christos/Documents/Gits/man/Source/UI/Browser/YouTubeBrowserPanel.cpp
+CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building CXX object CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.o -MF CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.o.d -o CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.o -c /Users/christos/Documents/Gits/man/Source/UI/Browser/YouTubeBrowserPanel.cpp
+
+CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/christos/Documents/Gits/man/Source/UI/Browser/YouTubeBrowserPanel.cpp > CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.i
+
+CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/christos/Documents/Gits/man/Source/UI/Browser/YouTubeBrowserPanel.cpp -o CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.s
+
+CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.o: CMakeFiles/man.dir/flags.make
+CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.o: /Users/christos/Documents/Gits/man/Source/Network/YouTubeDownloader.cpp
+CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building CXX object CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.o -MF CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.o.d -o CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.o -c /Users/christos/Documents/Gits/man/Source/Network/YouTubeDownloader.cpp
+
+CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/christos/Documents/Gits/man/Source/Network/YouTubeDownloader.cpp > CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.i
+
+CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/christos/Documents/Gits/man/Source/Network/YouTubeDownloader.cpp -o CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.s
+
 CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.o: /Users/christos/Documents/Gits/man/Source/Export/AudioExporter.cpp
 CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building CXX object CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.o -MF CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.o.d -o CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.o -c /Users/christos/Documents/Gits/man/Source/Export/AudioExporter.cpp
 
 CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.i: cmake_force
@@ -731,7 +815,7 @@ CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.s: cmake_force
 CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.o: /Users/christos/Documents/Gits/man/Source/Export/VideoExporter.cpp
 CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CXX object CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building CXX object CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.o -MF CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.o.d -o CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.o -c /Users/christos/Documents/Gits/man/Source/Export/VideoExporter.cpp
 
 CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.i: cmake_force
@@ -745,7 +829,7 @@ CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.s: cmake_force
 CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_utils/juce_audio_utils.mm
 CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_utils/juce_audio_utils.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.i: cmake_force
@@ -759,7 +843,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.s: cmake_fo
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors/juce_audio_processors.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors/juce_audio_processors.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_processors/juce_audio_processors.mm
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors/juce_audio_processors.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_processors/juce_audio_processors.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_processors/juce_audio_processors.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_audio_processors/juce_audio_processors.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_audio_processors/juce_audio_processors.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_audio_processors/juce_audio_processors.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_processors/juce_audio_processors.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors/juce_audio_processors.mm.i: cmake_force
@@ -773,7 +857,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_audio_processors/juce_audio_processors.mm.s
 CMakeFiles/man.dir/JUCE/modules/juce_gui_extra/juce_gui_extra.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_gui_extra/juce_gui_extra.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_gui_extra/juce_gui_extra.mm
 CMakeFiles/man.dir/JUCE/modules/juce_gui_extra/juce_gui_extra.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_gui_extra/juce_gui_extra.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_gui_extra/juce_gui_extra.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_gui_extra/juce_gui_extra.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_gui_extra/juce_gui_extra.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_gui_extra/juce_gui_extra.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_gui_extra/juce_gui_extra.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_gui_extra/juce_gui_extra.mm.i: cmake_force
@@ -787,7 +871,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_gui_extra/juce_gui_extra.mm.s: cmake_force
 CMakeFiles/man.dir/JUCE/modules/juce_gui_basics/juce_gui_basics.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_gui_basics/juce_gui_basics.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_gui_basics/juce_gui_basics.mm
 CMakeFiles/man.dir/JUCE/modules/juce_gui_basics/juce_gui_basics.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_gui_basics/juce_gui_basics.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_gui_basics/juce_gui_basics.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_gui_basics/juce_gui_basics.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_gui_basics/juce_gui_basics.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_gui_basics/juce_gui_basics.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_gui_basics/juce_gui_basics.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_gui_basics/juce_gui_basics.mm.i: cmake_force
@@ -801,7 +885,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_gui_basics/juce_gui_basics.mm.s: cmake_forc
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_60) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o -MF CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp
 
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.i: cmake_force
@@ -815,7 +899,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.s: cmak
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building C object CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_61) "Building C object CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c.o -MF CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c
 
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c.i: cmake_force
@@ -829,7 +913,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics_Sheenbidi.c.s: cmake
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_graphics/juce_graphics.mm
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_62) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_graphics/juce_graphics.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics.mm.i: cmake_force
@@ -843,7 +927,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_graphics/juce_graphics.mm.s: cmake_force
 CMakeFiles/man.dir/JUCE/modules/juce_events/juce_events.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_events/juce_events.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_events/juce_events.mm
 CMakeFiles/man.dir/JUCE/modules/juce_events/juce_events.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_events/juce_events.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_63) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_events/juce_events.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_events/juce_events.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_events/juce_events.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_events/juce_events.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_events/juce_events.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_events/juce_events.mm.i: cmake_force
@@ -857,7 +941,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_events/juce_events.mm.s: cmake_force
 CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core_CompilationTime.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core_CompilationTime.cpp.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_core/juce_core_CompilationTime.cpp
 CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core_CompilationTime.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core_CompilationTime.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_64) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core_CompilationTime.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core_CompilationTime.cpp.o -MF CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core_CompilationTime.cpp.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core_CompilationTime.cpp.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_core/juce_core_CompilationTime.cpp
 
 CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core_CompilationTime.cpp.i: cmake_force
@@ -871,7 +955,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core_CompilationTime.cpp.s: cmake
 CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_core/juce_core.mm
 CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_59) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_65) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_core/juce_core.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core.mm.i: cmake_force
@@ -885,7 +969,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_core/juce_core.mm.s: cmake_force
 CMakeFiles/man.dir/JUCE/modules/juce_data_structures/juce_data_structures.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_data_structures/juce_data_structures.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_data_structures/juce_data_structures.mm
 CMakeFiles/man.dir/JUCE/modules/juce_data_structures/juce_data_structures.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_60) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_data_structures/juce_data_structures.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_66) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_data_structures/juce_data_structures.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_data_structures/juce_data_structures.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_data_structures/juce_data_structures.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_data_structures/juce_data_structures.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_data_structures/juce_data_structures.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_data_structures/juce_data_structures.mm.i: cmake_force
@@ -899,7 +983,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_data_structures/juce_data_structures.mm.s: 
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_61) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_67) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o -MF CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp
 
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.i: cmake_force
@@ -913,7 +997,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_proces
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_62) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_68) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o -MF CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp
 
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.i: cmake_force
@@ -927,7 +1011,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_proces
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_63) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_69) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_processors_headless.mm.i: cmake_force
@@ -941,7 +1025,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_audio_processors_headless/juce_audio_proces
 CMakeFiles/man.dir/JUCE/modules/juce_audio_basics/juce_audio_basics.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_audio_basics/juce_audio_basics.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_basics/juce_audio_basics.mm
 CMakeFiles/man.dir/JUCE/modules/juce_audio_basics/juce_audio_basics.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_64) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_basics/juce_audio_basics.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_70) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_basics/juce_audio_basics.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_audio_basics/juce_audio_basics.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_audio_basics/juce_audio_basics.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_audio_basics/juce_audio_basics.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_basics/juce_audio_basics.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_audio_basics/juce_audio_basics.mm.i: cmake_force
@@ -955,7 +1039,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_audio_basics/juce_audio_basics.mm.s: cmake_
 CMakeFiles/man.dir/JUCE/modules/juce_audio_formats/juce_audio_formats.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_audio_formats/juce_audio_formats.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_formats/juce_audio_formats.mm
 CMakeFiles/man.dir/JUCE/modules/juce_audio_formats/juce_audio_formats.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_65) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_formats/juce_audio_formats.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_71) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_formats/juce_audio_formats.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_audio_formats/juce_audio_formats.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_audio_formats/juce_audio_formats.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_audio_formats/juce_audio_formats.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_formats/juce_audio_formats.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_audio_formats/juce_audio_formats.mm.i: cmake_force
@@ -969,7 +1053,7 @@ CMakeFiles/man.dir/JUCE/modules/juce_audio_formats/juce_audio_formats.mm.s: cmak
 CMakeFiles/man.dir/JUCE/modules/juce_audio_devices/juce_audio_devices.mm.o: CMakeFiles/man.dir/flags.make
 CMakeFiles/man.dir/JUCE/modules/juce_audio_devices/juce_audio_devices.mm.o: /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_devices/juce_audio_devices.mm
 CMakeFiles/man.dir/JUCE/modules/juce_audio_devices/juce_audio_devices.mm.o: CMakeFiles/man.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_66) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_devices/juce_audio_devices.mm.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_72) "Building CXX object CMakeFiles/man.dir/JUCE/modules/juce_audio_devices/juce_audio_devices.mm.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/man.dir/JUCE/modules/juce_audio_devices/juce_audio_devices.mm.o -MF CMakeFiles/man.dir/JUCE/modules/juce_audio_devices/juce_audio_devices.mm.o.d -o CMakeFiles/man.dir/JUCE/modules/juce_audio_devices/juce_audio_devices.mm.o -c /Users/christos/Documents/Gits/man/JUCE/modules/juce_audio_devices/juce_audio_devices.mm
 
 CMakeFiles/man.dir/JUCE/modules/juce_audio_devices/juce_audio_devices.mm.i: cmake_force
@@ -1020,6 +1104,10 @@ man_OBJECTS = \
 "CMakeFiles/man.dir/Source/UI/Live/TriggerGrid.cpp.o" \
 "CMakeFiles/man.dir/Source/UI/Common/ModeSelector.cpp.o" \
 "CMakeFiles/man.dir/Source/UI/Common/VisualPreview.cpp.o" \
+"CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.o" \
+"CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.o" \
+"CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.o" \
+"CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.o" \
 "CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.o" \
 "CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.o" \
 "CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.o" \
@@ -1027,6 +1115,8 @@ man_OBJECTS = \
 "CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.o" \
 "CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.o" \
 "CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.o" \
+"CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.o" \
+"CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.o" \
 "CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.o" \
 "CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.o" \
 "CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.o" \
@@ -1088,6 +1178,10 @@ man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI/Live/TriggerGrid.cpp.o
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI/Common/ModeSelector.cpp.o
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI/Common/VisualPreview.cpp.o
+man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI/Common/SwipeContainer.cpp.o
+man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI/Common/PageIndicator.cpp.o
+man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI/Discovery/CombineBar.cpp.o
+man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI/Discovery/ElementEditor.cpp.o
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/Visuals/ImageVisual.cpp.o
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/Visuals/VideoDecoder.mm.o
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/Visuals/VideoVisual.cpp.o
@@ -1095,6 +1189,8 @@ man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI/Browser/SoundBrowserPanel.cpp.o
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI/Browser/VisualBrowserPanel.cpp.o
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI/Browser/VisualParamEditor.cpp.o
+man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/UI/Browser/YouTubeBrowserPanel.cpp.o
+man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/Network/YouTubeDownloader.cpp.o
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/Export/AudioExporter.cpp.o
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/Source/Export/VideoExporter.cpp.o
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/JUCE/modules/juce_audio_utils/juce_audio_utils.mm.o
@@ -1117,7 +1213,7 @@ man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/JUCE/modu
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/build.make
 man_artefacts/Release/man..app/Contents/MacOS/man.: libManResources.a
 man_artefacts/Release/man..app/Contents/MacOS/man.: CMakeFiles/man.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_67) "Linking CXX executable man_artefacts/Release/man..app/Contents/MacOS/man."
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/christos/Documents/Gits/man/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_73) "Linking CXX executable man_artefacts/Release/man..app/Contents/MacOS/man."
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/man.dir/link.txt --verbose=$(VERBOSE)
 	/opt/homebrew/bin/cmake -E copy /Users/christos/Documents/Gits/man/build/man_artefacts/JuceLibraryCode/man/PkgInfo /Users/christos/Documents/Gits/man/build/man_artefacts/Release/man..app/Contents
 	/opt/homebrew/bin/cmake -E copy_directory /Users/christos/Documents/Gits/man/Resources/Samples /Users/christos/Documents/Gits/man/build/man_artefacts/Release/man..app/Contents/Resources/Samples

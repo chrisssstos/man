@@ -1,5 +1,6 @@
 #pragma once
 #include <JuceHeader.h>
+#include "UI/Common/TouchConstants.h"
 
 class TransportBar : public juce::Component
 {

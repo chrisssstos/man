@@ -2,6 +2,8 @@
 #include <JuceHeader.h>
 #include "ElementTile.h"
 #include "Model/ElementLibrary.h"
+#include "UI/Common/TouchConstants.h"
+#include "UI/Browser/YouTubeBrowserPanel.h"
 
 class VisualPanel : public juce::Component,
                     public juce::DragAndDropTarget,
@@ -39,12 +41,13 @@ private:
     ElementTile* selectedTile = nullptr;
     bool hovering = false;
 
+    // YouTube integration
+    juce::TextButton youtubeButton { "YT" };
+    YouTubeBrowserPanel youtubeBrowser;
+    bool youtubeMode = false;
+
     juce::TextButton importButton { "+" };
     std::unique_ptr<juce::FileChooser> fileChooser;
-
-    static constexpr int kTileSize = 90;
-    static constexpr int kGap = 6;
-    static constexpr int kTitleBarH = 28;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VisualPanel)
 };

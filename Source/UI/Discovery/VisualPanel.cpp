@@ -2,11 +2,40 @@
 #include "UI/Browser/BrowserDragSource.h"
 
 VisualPanel::VisualPanel (ElementLibrary& lib)
-    : library (lib)
+    : library (lib), youtubeBrowser (lib)
 {
     viewport.setViewedComponent (&tileContainer, false);
     viewport.setScrollBarsShown (true, false);
     addAndMakeVisible (viewport);
+
+    // YouTube toggle button
+    youtubeButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xffcc2222));
+    youtubeButton.setColour (juce::TextButton::textColourOffId, juce::Colours::white);
+    youtubeButton.setTooltip ("Toggle YouTube search");
+    youtubeButton.onClick = [this]
+    {
+        youtubeMode = ! youtubeMode;
+        youtubeBrowser.setVisible (youtubeMode);
+        viewport.setVisible (! youtubeMode);
+        importButton.setVisible (! youtubeMode);
+        youtubeButton.setButtonText (youtubeMode ? "Tiles" : "YT");
+        repaint();
+    };
+    addAndMakeVisible (youtubeButton);
+
+    // YouTube browser (hidden by default)
+    addChildComponent (youtubeBrowser);
+
+    // When a YouTube video is downloaded and added to library, rebuild tiles
+    youtubeBrowser.onVisualAdded = [this]
+    {
+        youtubeMode = false;
+        youtubeBrowser.setVisible (false);
+        viewport.setVisible (true);
+        importButton.setVisible (true);
+        youtubeButton.setButtonText ("YT");
+        rebuild();
+    };
 
     importButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff4488ff));
     importButton.setColour (juce::TextButton::textColourOffId, juce::Colours::white);
@@ -79,22 +108,8 @@ void VisualPanel::clearSelection()
 
 void VisualPanel::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colour (hovering ? 0xff1a1a3a : 0xff0e0e24));
+    g.fillAll (juce::Colour (hovering ? TouchUI::kBgCard : TouchUI::kBgPanel));
 
-    // Title bar — smoother style
-    auto titleArea = getLocalBounds().removeFromTop (kTitleBarH);
-    g.setColour (juce::Colour (0xff1a1a2a));
-    g.fillRect (titleArea);
-
-    // Accent line at bottom of title
-    g.setColour (juce::Colour (0xff4488ff));
-    g.fillRect (titleArea.getX(), titleArea.getBottom() - 2, titleArea.getWidth(), 2);
-
-    g.setColour (juce::Colours::white.withAlpha (0.9f));
-    g.setFont (juce::FontOptions (14.0f));
-    g.drawText ("VISUALS", titleArea.withTrimmedRight (kTitleBarH + 4), juce::Justification::centred);
-
-    // Drop hint — smooth glow border
     if (hovering)
     {
         g.setColour (juce::Colour (0xff4488ff).withAlpha (0.4f));
@@ -105,24 +120,38 @@ void VisualPanel::paint (juce::Graphics& g)
 void VisualPanel::resized()
 {
     auto area = getLocalBounds();
-    auto titleBar = area.removeFromTop (kTitleBarH);
-    importButton.setBounds (titleBar.removeFromRight (kTitleBarH).reduced (3));
 
-    area.removeFromTop (2);
+    // YouTube toggle button in top-right corner
+    int btnSize = 40;
+    youtubeButton.setBounds (area.getRight() - btnSize - 4, 4, btnSize, btnSize);
+    youtubeButton.toFront (false);
+
+    // YouTube browser fills the whole area (below toggle)
+    youtubeBrowser.setBounds (area.withTrimmedTop (btnSize + 8));
+
+    // Floating import button in bottom-right corner
+    importButton.setBounds (area.getRight() - TouchUI::kMinTouchTarget - 8,
+                            area.getBottom() - TouchUI::kMinTouchTarget - 8,
+                            TouchUI::kMinTouchTarget, TouchUI::kMinTouchTarget);
+    importButton.toFront (false);
+
+    // Tile grid viewport fills available area
     viewport.setBounds (area);
 
-    int cols = juce::jmax (1, (area.getWidth() - kGap) / (kTileSize + kGap));
+    int tileSize = TouchUI::kTileSize;
+    int gap = TouchUI::kTileGap;
+    int cols = juce::jmax (1, (area.getWidth() - gap) / (tileSize + gap));
     int rows = ((int) tiles.size() + cols - 1) / cols;
-    int containerHeight = rows * (kTileSize + kGap) + kGap;
+    int containerHeight = rows * (tileSize + gap) + gap;
     tileContainer.setSize (area.getWidth(), containerHeight);
 
     for (int i = 0; i < tiles.size(); ++i)
     {
         int col = i % cols;
         int row = i / cols;
-        tiles[i]->setBounds (kGap + col * (kTileSize + kGap),
-                             kGap + row * (kTileSize + kGap),
-                             kTileSize, kTileSize);
+        tiles[i]->setBounds (gap + col * (tileSize + gap),
+                             gap + row * (tileSize + gap),
+                             tileSize, tileSize);
     }
 }
 

@@ -11,7 +11,7 @@ LiveView::LiveView (ElementLibrary& lib, AudioEngine& eng, Sketch& sk)
 
     triggerGrid.addListener (this);
 
-    recordButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xffe94560));
+    recordButton.setColour (juce::TextButton::buttonColourId, juce::Colour (TouchUI::kAccentPink));
     stopButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xffe74c3c));
 
     recordButton.onClick = [this]
@@ -27,7 +27,6 @@ LiveView::LiveView (ElementLibrary& lib, AudioEngine& eng, Sketch& sk)
         recordButton.setEnabled (true);
         stopButton.setEnabled (false);
 
-        // Convert recorded events to sketch clips
         auto events = audioEngine.getRecordedEvents();
         int track = 0;
         for (const auto& event : events)
@@ -58,19 +57,26 @@ LiveView::~LiveView()
 
 void LiveView::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colour (0xff0a0a1e));
+    g.fillAll (juce::Colour (TouchUI::kBgDeep));
 }
 
 void LiveView::resized()
 {
     auto area = getLocalBounds();
-    auto topBar = area.removeFromTop (36);
-    recordButton.setBounds (topBar.removeFromLeft (80).reduced (4));
-    stopButton.setBounds (topBar.removeFromLeft (80).reduced (4));
 
-    auto triggerArea = area.removeFromBottom (area.getHeight() * 35 / 100);
-    triggerGrid.setBounds (triggerArea);
-    visualCanvas.setBounds (area);
+    // Transport bar: 64px with large buttons
+    auto topBar = area.removeFromTop (TouchUI::kTransportHeight);
+    int btnW = 120;
+    int btnH = TouchUI::kMinTouchTarget;
+    recordButton.setBounds (topBar.removeFromLeft (btnW + 8).withSizeKeepingCentre (btnW, btnH));
+    stopButton.setBounds (topBar.removeFromLeft (btnW + 8).withSizeKeepingCentre (btnW, btnH));
+
+    // VisualCanvas: 55% of remaining
+    int canvasH = area.getHeight() * 55 / 100;
+    visualCanvas.setBounds (area.removeFromTop (canvasH));
+
+    // TriggerGrid: remaining
+    triggerGrid.setBounds (area);
 }
 
 void LiveView::padTriggered (const ElementID& id)
@@ -87,7 +93,7 @@ bool LiveView::keyPressed (const juce::KeyPress& key, juce::Component*)
 {
     int code = juce::CharacterFunctions::toUpperCase ((juce::juce_wchar) key.getKeyCode());
     if (heldKeys.count (code) > 0)
-        return true; // Already held
+        return true;
 
     auto* pad = triggerGrid.getPadForKey (code);
     if (pad != nullptr && pad->getElement() != nullptr)
@@ -102,7 +108,6 @@ bool LiveView::keyPressed (const juce::KeyPress& key, juce::Component*)
 
 bool LiveView::keyStateChanged (bool, juce::Component*)
 {
-    // Check for released keys
     std::vector<int> toRemove;
     for (int code : heldKeys)
     {

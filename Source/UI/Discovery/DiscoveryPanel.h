@@ -2,6 +2,7 @@
 #include <JuceHeader.h>
 #include "ElementTile.h"
 #include "Model/ElementLibrary.h"
+#include "UI/Common/TouchConstants.h"
 
 class DiscoveryPanel : public juce::Component
 {
@@ -21,9 +22,6 @@ private:
     juce::Viewport viewport;
     juce::Component tileContainer;
     ElementTile::Listener* tileListener = nullptr;
-
-    static constexpr int kTileSize = 90;
-    static constexpr int kGap = 6;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DiscoveryPanel)
 };

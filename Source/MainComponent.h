@@ -7,13 +7,15 @@
 #include "Audio/AudioEngine.h"
 #include "Audio/SampleManager.h"
 #include "UI/Common/ModeSelector.h"
+#include "UI/Common/SwipeContainer.h"
 #include "UI/Discovery/DiscoveryView.h"
 #include "UI/Arrangement/ArrangementView.h"
 #include "UI/Live/LiveView.h"
 
 class MainComponent : public juce::Component,
                       public juce::DragAndDropContainer,
-                      public ModeSelector::Listener
+                      public ModeSelector::Listener,
+                      public SwipeContainer::Listener
 {
 public:
     MainComponent();
@@ -23,6 +25,7 @@ public:
     void resized() override;
 
     void modeChanged (ModeSelector::Mode newMode) override;
+    void swipePageChanged (int newPage) override;
 
     ElementLibrary& getElementLibrary()  { return elementLibrary; }
     RecipeBook& getRecipeBook()          { return recipeBook; }
@@ -39,14 +42,12 @@ private:
     AudioEngine audioEngine;
 
     ModeSelector modeSelector;
+    SwipeContainer swipeContainer;
     std::unique_ptr<DiscoveryView> discoveryView;
     std::unique_ptr<ArrangementView> arrangementView;
     std::unique_ptr<LiveView> liveView;
 
-    ModeSelector::Mode currentMode = ModeSelector::Mode::Discovery;
-
     void initializeBaseElements();
-    void showCurrentMode();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

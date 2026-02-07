@@ -3,51 +3,35 @@
 DiscoveryView::DiscoveryView (ElementLibrary& lib, RecipeBook& rb,
                                DiscoveryLog& dl, AudioEngine& ae)
     : elementLibrary (lib), recipeBook (rb), discoveryLog (dl), audioEngine (ae),
-      soundPanel (lib, ae), visualPanel (lib), discoveryPanel (lib), visualCanvas (lib)
+      soundPanel (lib, ae), visualPanel (lib),
+      discoveryPanel (lib), visualCanvas (lib),
+      elementEditor (ae, ae.getSampleManager())
 {
     addAndMakeVisible (soundPanel);
     addAndMakeVisible (visualPanel);
-    addAndMakeVisible (combineButton);
     addAndMakeVisible (discoveryPanel);
+    addAndMakeVisible (combineBar);
     addAndMakeVisible (visualCanvas);
     addChildComponent (discoveryAnimation);
+    addChildComponent (elementEditor);
 
     // Set listeners BEFORE rebuild so tiles get them
     soundPanel.setTileListener (this);
     visualPanel.setTileListener (this);
     discoveryPanel.setTileListener (this);
     discoveryLog.addListener (this);
+    combineBar.addListener (this);
+    elementEditor.addListener (this);
 
-    // Now rebuild panels — tiles will have listeners attached
+    // Now rebuild panels
     soundPanel.rebuild();
     visualPanel.rebuild();
     discoveryPanel.rebuild();
 
-    // Wire the visual canvas to show active AV elements from the audio engine
+    // Wire the visual canvas to show active AV elements
     visualCanvas.setActiveElementsProvider ([&ae] () { return ae.getActiveElementIds(); });
 
-    combineButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff1a1a1a));
-    combineButton.setColour (juce::TextButton::textColourOnId, juce::Colours::white);
-    combineButton.setColour (juce::TextButton::textColourOffId, juce::Colours::white.withAlpha (0.5f));
-    combineButton.setEnabled (false);
-
-    combineButton.onClick = [this]
-    {
-        if (selectedSound != nullptr && selectedVisual != nullptr)
-        {
-            tryCombine (selectedSound->getElement()->getId(),
-                        selectedVisual->getElement()->getId());
-
-            // Deselect directly on tiles, then clear pointers
-            selectedSound->setSelected (false);
-            selectedVisual->setSelected (false);
-            selectedSound = nullptr;
-            selectedVisual = nullptr;
-            updateCombineButton();
-        }
-    };
-
-    updateCombineButton();
+    updateCombineBar();
 }
 
 DiscoveryView::~DiscoveryView()
@@ -57,49 +41,56 @@ DiscoveryView::~DiscoveryView()
 
 void DiscoveryView::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colour (0xff0a0a1e));
+    g.fillAll (juce::Colour (TouchUI::kBgDeep));
+
+    // Section labels
+    auto area = getLocalBounds();
+    int labelH = 28;
+    int halfW = area.getWidth() / 2;
+
+    g.setFont (juce::FontOptions (TouchUI::kFontSmall));
+
+    // "Sounds" label (left)
+    g.setColour (juce::Colours::white.withAlpha (0.6f));
+    g.drawText ("Sounds", 10, 4, halfW - 20, labelH,
+                juce::Justification::centredLeft);
+
+    // "Visuals" label (right)
+    g.drawText ("Visuals", halfW + 10, 4, halfW - 20, labelH,
+                juce::Justification::centredLeft);
 }
 
 void DiscoveryView::resized()
 {
     auto area = getLocalBounds();
-    int gap = 4;
+    int gap = TouchUI::kStandardGap;
+    int labelH = 28;
 
-    // Combine button bar
-    int combineBarH = 44;
+    // Section labels at very top
+    area.removeFromTop (labelH);
 
-    // Panel 3 height: 16:9 aspect ratio based on width
-    int panel3H = juce::jmax (200, (area.getWidth() * 9) / 16);
-    // Cap it so panels above still have space
-    int topPanelMinH = 250;
-    int availableForBottom = area.getHeight() - combineBarH - gap * 3;
-    panel3H = juce::jmin (panel3H, availableForBottom - topPanelMinH);
-    panel3H = juce::jmax (150, panel3H);
-
-    int topPanelH = area.getHeight() - combineBarH - panel3H - gap * 3;
-
-    // Top row: Sounds (left) | Visuals (right)
-    auto topArea = area.removeFromTop (topPanelH);
-    int halfW = (topArea.getWidth() - gap) / 2;
-    soundPanel.setBounds (topArea.removeFromLeft (halfW));
+    // Top section: SoundPanel + VisualPanel (~55% of remaining)
+    int topH = area.getHeight() * 55 / 100;
+    auto topArea = area.removeFromTop (topH);
+    int halfW = topArea.getWidth() / 2;
+    soundPanel.setBounds (topArea.removeFromLeft (halfW - gap / 2));
     topArea.removeFromLeft (gap);
     visualPanel.setBounds (topArea);
 
+    // CombineBar in center (80px, prominent divider)
+    auto combineArea = area.removeFromTop (80);
+    combineBar.setBounds (combineArea);
+
+    // Bottom section: DiscoveryPanel + VisualCanvas (remaining)
     area.removeFromTop (gap);
-
-    // Combine button bar
-    combineButton.setBounds (area.removeFromTop (combineBarH));
-
-    area.removeFromTop (gap);
-
-    // Panel 3: split between discovery tiles and visual canvas preview
-    auto bottomArea = area;
-    int canvasW = (bottomArea.getWidth() * 40) / 100;
-    auto canvasArea = bottomArea.removeFromRight (canvasW);
-    visualCanvas.setBounds (canvasArea);
-    discoveryPanel.setBounds (bottomArea);
+    int canvasW = juce::jmax (120, area.getWidth() * 35 / 100);
+    visualCanvas.setBounds (area.removeFromRight (canvasW));
+    discoveryPanel.setBounds (area);
 
     discoveryAnimation.setBounds (getLocalBounds());
+
+    if (elementEditor.isOpen())
+        elementEditor.setBounds (getLocalBounds());
 }
 
 void DiscoveryView::tileClicked (ElementTile* tile)
@@ -110,19 +101,15 @@ void DiscoveryView::tileClicked (ElementTile* tile)
     {
         if (selectedSound == tile)
         {
-            // Toggle off
             tile->setSelected (false);
             selectedSound = nullptr;
         }
         else
         {
-            // Deselect previous sound
             if (selectedSound != nullptr)
                 selectedSound->setSelected (false);
             selectedSound = tile;
             tile->setSelected (true);
-
-            // Auto-preview the sound
             previewSoundTile (tile);
         }
     }
@@ -130,23 +117,42 @@ void DiscoveryView::tileClicked (ElementTile* tile)
     {
         if (selectedVisual == tile)
         {
-            // Toggle off
             tile->setSelected (false);
             selectedVisual = nullptr;
         }
         else
         {
-            // Deselect previous visual
             if (selectedVisual != nullptr)
                 selectedVisual->setSelected (false);
             selectedVisual = tile;
             tile->setSelected (true);
         }
     }
-    updateCombineButton();
+    updateCombineBar();
 }
 
-void DiscoveryView::tileDoubleClicked (ElementTile*) {}
+void DiscoveryView::tileDoubleClicked (ElementTile* tile)
+{
+    if (tile == nullptr || tile->getElement() == nullptr)
+        return;
+
+    auto type = tile->getElementType();
+
+    if (type == ElementTile::ElementType::Sound)
+    {
+        elementEditor.setBounds (getLocalBounds());
+        elementEditor.openForSound (static_cast<SoundElement*> (tile->getElement()));
+    }
+    else if (type == ElementTile::ElementType::Visual)
+    {
+        auto* vis = static_cast<VisualElement*> (tile->getElement());
+        if (vis->getVisualKind() == VisualElement::VisualKind::Video)
+        {
+            elementEditor.setBounds (getLocalBounds());
+            elementEditor.openForVisual (vis);
+        }
+    }
+}
 
 void DiscoveryView::tilePressed (ElementTile* tile)
 {
@@ -186,6 +192,46 @@ void DiscoveryView::previewSoundTile (ElementTile* tile)
     }
     if (file.existsAsFile())
         audioEngine.previewFile (file);
+}
+
+void DiscoveryView::combineRequested()
+{
+    if (selectedSound != nullptr && selectedVisual != nullptr)
+    {
+        tryCombine (selectedSound->getElement()->getId(),
+                    selectedVisual->getElement()->getId());
+
+        selectedSound->setSelected (false);
+        selectedVisual->setSelected (false);
+        selectedSound = nullptr;
+        selectedVisual = nullptr;
+        updateCombineBar();
+    }
+}
+
+void DiscoveryView::slotCleared (bool isSound)
+{
+    if (isSound && selectedSound != nullptr)
+    {
+        selectedSound->setSelected (false);
+        selectedSound = nullptr;
+    }
+    else if (! isSound && selectedVisual != nullptr)
+    {
+        selectedVisual->setSelected (false);
+        selectedVisual = nullptr;
+    }
+    updateCombineBar();
+}
+
+void DiscoveryView::editorClosed (bool trimApplied)
+{
+    if (trimApplied)
+    {
+        soundPanel.rebuild();
+        visualPanel.rebuild();
+        discoveryPanel.rebuild();
+    }
 }
 
 void DiscoveryView::onNewDiscovery (const ElementID& id)
@@ -257,32 +303,17 @@ bool DiscoveryView::tryCombine (const ElementID& a, const ElementID& b)
     return true;
 }
 
-void DiscoveryView::updateCombineButton()
+void DiscoveryView::updateCombineBar()
 {
-    bool canCombine = (selectedSound != nullptr && selectedVisual != nullptr);
-    combineButton.setEnabled (canCombine);
-
-    if (canCombine)
-    {
-        combineButton.setButtonText ("COMBINE: " + selectedSound->getElement()->getName()
-                                      + " + " + selectedVisual->getElement()->getName());
-        combineButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff2a8a2a));
-    }
-    else if (selectedSound != nullptr)
-    {
-        combineButton.setButtonText ("Select a visual to combine with " + selectedSound->getElement()->getName());
-        combineButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff1a1a1a));
-    }
-    else if (selectedVisual != nullptr)
-    {
-        combineButton.setButtonText ("Select a sound to combine with " + selectedVisual->getElement()->getName());
-        combineButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff1a1a1a));
-    }
+    if (selectedSound != nullptr)
+        combineBar.setSoundSlot (static_cast<SoundElement*> (selectedSound->getElement()));
     else
-    {
-        combineButton.setButtonText ("COMBINE - Select a sound and a visual");
-        combineButton.setColour (juce::TextButton::buttonColourId, juce::Colour (0xff1a1a1a));
-    }
+        combineBar.clearSoundSlot();
+
+    if (selectedVisual != nullptr)
+        combineBar.setVisualSlot (static_cast<VisualElement*> (selectedVisual->getElement()));
+    else
+        combineBar.clearVisualSlot();
 }
 
 void DiscoveryView::rebuild()
@@ -292,5 +323,5 @@ void DiscoveryView::rebuild()
     soundPanel.rebuild();
     visualPanel.rebuild();
     discoveryPanel.rebuild();
-    updateCombineButton();
+    updateCombineBar();
 }

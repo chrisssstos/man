@@ -56,6 +56,7 @@ public:
 
     // Audio file preview (for browser)
     void previewFile (const juce::File& file);
+    void previewFileTrimmed (const juce::File& file, float trimStart, float trimEnd);
     void stopPreview();
 
     // Recorded events (from live mode)

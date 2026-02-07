@@ -4,7 +4,7 @@ DiscoveryPanel::DiscoveryPanel (ElementLibrary& lib)
     : library (lib)
 {
     viewport.setViewedComponent (&tileContainer, false);
-    viewport.setScrollBarsShown (false, true);
+    viewport.setScrollBarsShown (true, true);
     addAndMakeVisible (viewport);
 }
 
@@ -26,11 +26,11 @@ void DiscoveryPanel::rebuild()
 
 void DiscoveryPanel::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colour (0xff0e0e24));
+    g.fillAll (juce::Colour (TouchUI::kBgPanel));
 
     // Header area
-    auto headerArea = getLocalBounds().removeFromTop (24);
-    g.setColour (juce::Colour (0xff1a1a2a));
+    auto headerArea = getLocalBounds().removeFromTop (32);
+    g.setColour (juce::Colour (TouchUI::kBgCard));
     g.fillRect (headerArea);
 
     // Accent line
@@ -38,7 +38,7 @@ void DiscoveryPanel::paint (juce::Graphics& g)
     g.fillRect (headerArea.getX(), headerArea.getBottom() - 2, headerArea.getWidth(), 2);
 
     g.setColour (juce::Colours::white.withAlpha (0.8f));
-    g.setFont (juce::FontOptions (13.0f));
+    g.setFont (juce::FontOptions (TouchUI::kFontSmall));
 
     auto totalAV = (int) library.getAllAudioVisuals().size();
     auto discovered = (int) library.getAllDiscoveredAV().size();
@@ -48,20 +48,23 @@ void DiscoveryPanel::paint (juce::Graphics& g)
 
 void DiscoveryPanel::resized()
 {
-    auto area = getLocalBounds().withTrimmedTop (26);
+    auto area = getLocalBounds().withTrimmedTop (34);
     viewport.setBounds (area);
 
-    int rows = juce::jmax (1, (area.getHeight() - kGap) / (kTileSize + kGap));
-    int cols = ((int) tiles.size() + rows - 1) / juce::jmax (1, rows);
-    int containerWidth = cols * (kTileSize + kGap) + kGap;
-    tileContainer.setSize (juce::jmax (containerWidth, area.getWidth()), area.getHeight());
+    int tileSize = TouchUI::kTileSize;
+    int gap = TouchUI::kTileGap;
+    int cols = juce::jmax (1, (area.getWidth() - gap) / (tileSize + gap));
+    int rows = ((int) tiles.size() + cols - 1) / juce::jmax (1, cols);
+    int containerHeight = rows * (tileSize + gap) + gap;
+    tileContainer.setSize (juce::jmax (area.getWidth(), cols * (tileSize + gap) + gap),
+                           juce::jmax (containerHeight, area.getHeight()));
 
     for (int i = 0; i < tiles.size(); ++i)
     {
-        int row = i % rows;
-        int col = i / rows;
-        tiles[i]->setBounds (kGap + col * (kTileSize + kGap),
-                             kGap + row * (kTileSize + kGap),
-                             kTileSize, kTileSize);
+        int col = i % cols;
+        int row = i / cols;
+        tiles[i]->setBounds (gap + col * (tileSize + gap),
+                             gap + row * (tileSize + gap),
+                             tileSize, tileSize);
     }
 }

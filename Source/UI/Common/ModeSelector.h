@@ -1,5 +1,6 @@
 #pragma once
 #include <JuceHeader.h>
+#include "TouchConstants.h"
 
 class ModeSelector : public juce::Component
 {
@@ -9,9 +10,10 @@ public:
     ModeSelector();
 
     void paint (juce::Graphics& g) override;
-    void resized() override;
+    void mouseDown (const juce::MouseEvent& e) override;
 
     Mode getCurrentMode() const { return currentMode; }
+    void setModeExternal (Mode mode);
 
     struct Listener
     {
@@ -24,14 +26,9 @@ public:
 
 private:
     Mode currentMode = Mode::Discovery;
-    juce::TextButton discoveryButton { "Discovery" };
-    juce::TextButton arrangementButton { "Arrange" };
-    juce::TextButton liveButton { "Live" };
-
     juce::ListenerList<Listener> listeners;
 
     void setMode (Mode mode);
-    void updateButtonStates();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModeSelector)
 };

@@ -1598,4 +1598,5 @@ CMakeFiles/man.dir/Source/UI/Discovery/DiscoveryPanel.cpp.o: \
   /Users/christos/Documents/Gits/man/Source/Model/Element.h \
   /Users/christos/Documents/Gits/man/Source/Visuals/VisualRenderer.h \
   /Users/christos/Documents/Gits/man/Source/Audio/SampleManager.h \
+  /Users/christos/Documents/Gits/man/Source/UI/Common/TouchConstants.h \
   /Users/christos/Documents/Gits/man/Source/Model/ElementLibrary.h

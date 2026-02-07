@@ -2,6 +2,7 @@
 #include <JuceHeader.h>
 #include "TriggerPad.h"
 #include "Model/ElementLibrary.h"
+#include "UI/Common/TouchConstants.h"
 
 class TriggerGrid : public juce::Component, public TriggerPad::Listener
 {
@@ -15,7 +16,6 @@ public:
     void padPressed (TriggerPad* pad) override;
     void padReleased (TriggerPad* pad) override;
 
-    // Keyboard mapping
     TriggerPad* getPadForKey (int keyCode) const;
 
     struct Listener
